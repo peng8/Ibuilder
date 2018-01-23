@@ -5,10 +5,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 import installCom from '@/utils/map_com.js'
-import installDrag from '@/utils/v-drag.js'
 
 installCom()
-installDrag()
 
 Vue.config.productionTip = false
 

@@ -19,10 +19,12 @@
         <div class="canvas-content">
           <component :is="$store.state.page.name" :com-data="$store.state.page"></component>
         </div>
+        <ui-img></ui-img>
       </div>
       <div class="edit-panel">
         <!-- <input type="file" @change="fileChange"> -->
-        <attr-editor></attr-editor>
+        <component :is="$store.state.editorData.name + 'Editor'"></component>
+        <!-- <attr-editor></attr-editor> -->
       </div>
     </div>
   </div>

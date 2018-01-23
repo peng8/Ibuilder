@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <img :src="comData.src" alt="">
-  </div>
+  <ui-element :comData="comData">
+    <img src="../assets/logo.png" alt="">
+  </ui-element> 
 </template>
 
 <script>

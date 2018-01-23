@@ -33,25 +33,25 @@ export default {
     addButton() {
       this.$store.commit(
         "addElement",
-        new Button({ text: "button", ctime: Date.now() })
+        new Button({ text: "button", name: "ui-button" })
       );
     },
     addImg() {
       this.$store.commit(
         "addElement",
-        new Img({ text: "image", ctime: Date.now() })
+        new Img({ text: "image", name: "ui-img" })
       );
     },
     addInput() {
       this.$store.commit(
         "addElement",
-        new Input({ text: "input", ctime: Date.now() })
+        new Input({ text: "input", name: "ui-input" })
       );
     },
     addText() {
       this.$store.commit(
         "addElement",
-        new Text({ text: "text", ctime: Date.now() })
+        new Text({ text: "text", name: "ui-text" })
       );
     }
   }
