@@ -1,5 +1,5 @@
 <template>
-  <div class="page" @click.prevent.stop="selectPage" :style="pageStyle">
+  <div class="page" @click.self.stop.prevent="selectPage" :style="pageStyle">
     <component 
       v-for="(item, index) in comData.elements" 
       :is="item.name"

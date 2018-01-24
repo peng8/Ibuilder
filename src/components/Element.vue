@@ -1,9 +1,8 @@
 <template>
   <div class="baseEle"
-       :style="eleStyle"
-        @click.stop="selectEl"
-        @mousedown.stop.prevent="dragEvent"
-        :class="{selected: comData ? comData.isSelected: ''}">
+    :style="eleStyle"
+    @mousedown.prevent="dragEvent"
+    :class="{selected: comData ? comData.isSelected: ''}">
     <slot></slot>
     <div class="operate" v-if="comData && comData.isSelected" @mousedown="mousedown">
       <div class="tl circleArea"></div>
@@ -46,13 +45,15 @@ export default {
   },
   methods: {
     selectEl(){
-      this.$store.commit('setSelectedEl', this.comData.uuid)
+      // this.$store.commit('setSelectedEl', this.comData.uuid)
     },
     dragEvent (event) {
       this.currentItem = 'operate'
       this.onMouseDown(event)
+      this.$store.commit('setSelectedEl', this.comData.uuid)
     },
     mousedown (event) {
+      event.stopPropagation()
       if (event.target.getAttribute('class') === 'operate') {
         this.currentItem = 'operate'
       } else {
@@ -137,8 +138,15 @@ export default {
     }
   },
   created () {
-    this.styleData = this.comData
-    // this.styleData = JSON.parse(JSON.stringify(this.comData))
+    this.styleData = JSON.parse(JSON.stringify(this.comData))
+  },
+  watch: {
+    comData: {
+      handler: function (val) {
+        this.styleData = JSON.parse(JSON.stringify(this.comData))
+      },
+      deep: true
+    }
   },
   computed: {
     eleStyle () {
