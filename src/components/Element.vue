@@ -132,10 +132,11 @@ export default {
     }
   },
   created () {
-    this.styleData = JSON.parse(JSON.stringify(this.comData))
+    this.styleData = this.comData
+    // this.styleData = JSON.parse(JSON.stringify(this.comData))
   },
   computed: {
-    eleStyle: function(){
+    eleStyle () {
       return {
         'top': this.styleData.top + 'px',
         'left': this.styleData.left + 'px',
