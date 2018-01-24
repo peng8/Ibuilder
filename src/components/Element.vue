@@ -5,14 +5,14 @@
         :class="{selected: comData ? comData.isSelected: ''}">
     <slot></slot>
     <div class="operate" v-if="comData && comData.isSelected" @mousedown="mousedown">
-      <div class="circleArea tl operate_btn"></div>
-      <div class="circleArea bl operate_btn"></div>
-      <div class="circleArea tr operate_btn"></div>
-      <div class="circleArea br operate_btn"></div>
-      <div class="rectangleArea t operate_btn" :style="tBtnStyle"></div>
-      <div class="rectangleArea l operate_btn" :style="lBtnStyle"></div>
-      <div class="rectangleArea r operate_btn" :style="rBtnStyle"></div>
-      <div class="rectangleArea b operate_btn" :style="bBtnStyle"></div>
+      <div class="tl circleArea"></div>
+      <div class="bl circleArea"></div>
+      <div class="tr circleArea"></div>
+      <div class="br circleArea"></div>
+      <div class="t rectangleArea" :style="tBtnStyle"></div>
+      <div class="l rectangleArea" :style="lBtnStyle"></div>
+      <div class="r rectangleArea" :style="rBtnStyle"></div>
+      <div class="b rectangleArea" :style="bBtnStyle"></div>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
       if (event.target.getAttribute('class') === 'operate') {
         this.currentItem = 'operate'
       } else {
-        this.currentItem = event.target.getAttribute('class').split(' ')[1]
+        this.currentItem = event.target.getAttribute('class').split(' ')[0]
       }
       this.onMouseDown(event)
     },
@@ -124,12 +124,17 @@ export default {
   },
   computed: {
     eleStyle: function(){
+      let top = this.styleData && this.styleData.top || 0
+      let left = this.styleData && this.styleData.left || 0
+      let zIndex = this.styleData && this.styleData['z-index'] || 0
+      let width = this.styleData && this.styleData.width || 0
+      let height = this.styleData && this.styleData.height || 0
       return {
-        'top': this.styleData['top'] + 'px',
-        'left': this.styleData['left'] + 'px',
-        'z-index': this.styleData['z-index'],
-        'width': this.styleData['width'] + 'px',
-        'height': this.styleData['height'] + 'px', 
+        'top': top + 'px',
+        'left': left + 'px',
+        'z-index': zIndex,
+        'width': width + 'px',
+        'height': height + 'px', 
       }
     },
     tBtnStyle () {
