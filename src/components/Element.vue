@@ -89,42 +89,42 @@ export default {
     resetPosition (width, height) {
       switch (this.currentItem) {
         case 'operate':
-          this.styleData.top = this.styleData.top + height
-          this.styleData.left = this.styleData.left + width
+          this.styleData.top = +this.styleData.top + height
+          this.styleData.left = +this.styleData.left + width
           break;
         case 'tl':
-          this.styleData.width = this.styleData.width - width
-          this.styleData.height = this.styleData.height - height
-          this.styleData.top = this.styleData.top + height
-          this.styleData.left = this.styleData.left + width
+          this.styleData.width = +this.styleData.width - width
+          this.styleData.height = +this.styleData.height - height
+          this.styleData.top = +this.styleData.top + height
+          this.styleData.left = +this.styleData.left + width
           break;
         case 'tr':
-          this.styleData.width = this.styleData.width + width
-          this.styleData.height = this.styleData.height - height
-          this.styleData.top = this.styleData.top - height
+          this.styleData.width = +this.styleData.width + width
+          this.styleData.height = +this.styleData.height - height
+          this.styleData.top = +this.styleData.top - height
           break;
         case 'bl':
-          this.styleData.width = this.styleData.width - width
-          this.styleData.height = this.styleData.height + height
-          this.styleData.left = this.styleData.left + width
+          this.styleData.width = +this.styleData.width - width
+          this.styleData.height = +this.styleData.height + height
+          this.styleData.left = +this.styleData.left + width
           break;
         case 'br':
-          this.styleData.width = this.styleData.width + width
-          this.styleData.height = this.styleData.height + height
+          this.styleData.width = +this.styleData.width + width
+          this.styleData.height = +this.styleData.height + height
           break;
         case 't':
-          this.styleData.height = this.styleData.height - height
-          this.styleData.top = this.styleData.top + height
+          this.styleData.height = +this.styleData.height - height
+          this.styleData.top = +this.styleData.top + height
           break;
         case 'b':
-          this.styleData.height = this.styleData.height + height
+          this.styleData.height = +this.styleData.height + height
           break;
         case 'l':
-          this.styleData.width = this.styleData.width - width
-          this.styleData.left = this.styleData.left + width
+          this.styleData.width = +this.styleData.width - width
+          this.styleData.left = +this.styleData.left + width
           break;
         case 'r':
-          this.styleData.width = this.styleData.width + width
+          this.styleData.width = +this.styleData.width + width
           break;
         default:
           break;
@@ -132,7 +132,7 @@ export default {
     }
   },
   created () {
-    this.styleData = this.comData
+    this.styleData = JSON.parse(JSON.stringify(this.comData))
   },
   computed: {
     eleStyle: function(){
