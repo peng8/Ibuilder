@@ -21,7 +21,16 @@
 export default {
   props: {
     comData:{
-
+      type: Object,
+      default () {
+        return {
+          'top': 0,
+          'left': 0,
+          'z-index': 0,
+          'width': 0,
+          'height': 0, 
+        }
+      }
     },
   },
   data(){
@@ -67,11 +76,14 @@ export default {
       document.removeEventListener('mousemove', this.onMouseMove)
       document.removeEventListener('mouseup', this.onMouseUp)
       // todo 提交style信息
-       // this.$store.commit('setPosition', {
-      //   top: this.comData['top'] + height,
-      //   left: this.comData['left'] + width,
-      //   uuid: this.comData.uuid,
-      // })
+      this.$store.commit('setElementStyle', {
+        'top': this.styleData.top,
+        'left': this.styleData.left,
+        'width': this.styleData.width,
+        'height': this.styleData.height,
+        'z-index': this.styleData['z-index'],
+        'uuid': this.comData.uuid
+      })
     },
     /** @description 缩放时重置属性 */
     resetPosition (width, height) {
@@ -124,17 +136,12 @@ export default {
   },
   computed: {
     eleStyle: function(){
-      let top = this.styleData && this.styleData.top || 0
-      let left = this.styleData && this.styleData.left || 0
-      let zIndex = this.styleData && this.styleData['z-index'] || 0
-      let width = this.styleData && this.styleData.width || 0
-      let height = this.styleData && this.styleData.height || 0
       return {
-        'top': top + 'px',
-        'left': left + 'px',
-        'z-index': zIndex,
-        'width': width + 'px',
-        'height': height + 'px', 
+        'top': this.styleData.top + 'px',
+        'left': this.styleData.left + 'px',
+        'z-index': this.styleData['z-index'],
+        'width': this.styleData.width + 'px',
+        'height': this.styleData.height + 'px', 
       }
     },
     tBtnStyle () {
