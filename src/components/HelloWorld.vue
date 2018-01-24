@@ -111,6 +111,7 @@ export default {
       height: 100%;
       border: 1px solid #c6c6c6;
       padding: 10px;
+      overflow-y: auto;
     }
   }
 }
