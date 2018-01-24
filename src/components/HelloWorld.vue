@@ -22,9 +22,7 @@
         <ui-img></ui-img>
       </div>
       <div class="edit-panel">
-        <!-- <input type="file" @change="fileChange"> -->
         <component :is="$store.state.editorData.name + 'Editor'"></component>
-        <!-- <attr-editor></attr-editor> -->
       </div>
     </div>
   </div>
@@ -33,24 +31,24 @@
 <script>
 import AttrEditor from "@/components/AttrEditor.vue"
 import NewEl from "@/components/NewEl.vue"
+import Page from "@/model/Page.js";
+
 export default {
   name: "HelloWorld",
   data() {
     return {};
   },
   methods: {
-    fileChange(e) {
-      let file = e.target.files[0];
-      let reader = new FileReader();
-      reader.onload = e => {
-        this.$store.commit("setBackGround", e.target.result);
-      };
-      reader.readAsDataURL(file);
-    },
+  
   },
   components: {
     AttrEditor,
     NewEl,
+  },
+  created(){
+    this.$store.commit("addPage", new Page({
+      elements: [],
+    }))
   }
 };
 </script>

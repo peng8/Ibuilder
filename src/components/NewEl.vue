@@ -54,7 +54,7 @@ export default {
         new Text({ text: "text", name: "ui-text" })
       );
     }
-  }
+  },
 };
 </script>
 
