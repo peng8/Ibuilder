@@ -10,7 +10,19 @@
     <div class="field">
       <label class="label">透明度</label>
       <div class="control">
-        <input class="input" type="text" v-model="$store.state.editorData.s.opacity">
+        <input class="input" type="text" v-model="$store.state.editorData.s['opacity']">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">内边距</label>
+      <div class="control">
+        <input class="input" type="text" v-model="$store.state.editorData.s['padding']">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">内部对齐方式</label>
+      <div class="control">
+        <input class="input" type="text" v-model="$store.state.editorData.s['justify-content']">
       </div>
     </div>
     <div class="field">
@@ -49,6 +61,44 @@
         <input class="input" type="text" v-model="$store.state.editorData.s['font-size']">
       </div>
     </div>
+    <div class="field">
+      <label class="label">字体粗细</label>
+      <div class="control">
+        <input class="input" type="text" v-model="$store.state.editorData.s['font-weight']">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">字体颜色</label>
+      <div class="control">
+        <input class="input" type="text" v-model="$store.state.editorData.s['color']">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">阴影颜色</label>
+      <div class="control">
+        <input class="input" type="text" v-model="$store.state.editorData.s.boxShadow.color">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">阴影大小</label>
+      <div class="control">
+        <input class="input" type="text" v-model="$store.state.editorData.s.boxShadow.radius">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">阴影方向</label>
+      <div class="control">
+        <input class="input" type="text" v-model="$store.state.editorData.s.boxShadow.position">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">阴影模糊</label>
+      <div class="control">
+        <input class="input" type="text" v-model="$store.state.editorData.s.boxShadow.blur">
+      </div>
+    </div>
+    
   </div>
 </template>
 
