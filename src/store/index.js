@@ -1,4 +1,3 @@
-
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -15,19 +14,12 @@ const recordPlugin = store => {
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    page:{
+    page: {
       name: "ui-page",
-      elements:[
-        
-      ]
+      elements: []
     },
-    records: [
-
-    ],
-    editorData: {
-
-    },
-    background:{},
+    records: [],
+    editorData: {}
   },
   mutations: {
     setBackGround: (state, val) => {
@@ -64,13 +56,13 @@ export default new Vuex.Store({
       })
     },
     setEditorData: (state, val) => {
-      state.editorData = val 
+      state.editorData = val
     },
     setSelectedEl: (state, val) => {
       //查找对象并提交，可以进一步抽象，同时也可以直接在element里修改值
       state.page.elements.forEach((value, index, arr) => {
         value.isSelected = false
-        if(value.uuid == val){
+        if (value.uuid == val) {
           //todo: 因为是引用类型，所以直接赋值
           value.isSelected = true
           //可以用action
@@ -78,14 +70,19 @@ export default new Vuex.Store({
         }
       })
     },
-    addRecord: (state, val) => {
-      state.records.push({
-        page: val
+    delEl: (state) => {
+      let tmpe = state.page.elements.filter((element) => {
+        if (element.uuid === state.editorData.uuid) {
+          return false
+        }
+        return true
       })
+
+      state.page.elements = tmpe
     }
   },
   actions: {
-    edit(context){
+    edit(context) {
 
     }
   },

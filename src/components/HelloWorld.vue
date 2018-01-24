@@ -7,8 +7,8 @@
       <div class="header-right">
         <a class="button is-primary">预览</a>
         <a class="button is-primary">保存</a>
-        <a class="button is-primary">上一步</a>
-        <a class="button is-primary">下一步</a>
+        <a class="button is-primary" @click="undo">撤销</a>
+        <a class="button is-primary" @click="redo">恢复</a>
       </div>
     </div>
     <div class="editor-content">
@@ -36,7 +36,29 @@ import NewEl from "@/components/NewEl.vue"
 export default {
   name: "HelloWorld",
   data() {
-    return {};
+    return {
+      records: this.$store.state.records,
+      currentStep: 0,
+      noWatch: false,
+      pageData: this.$store.state.page
+    };
+  },
+  watch: {
+    pageData: {
+      handler: function(val) {
+        if (this.noWatch) {
+          this.noWatch = false
+        } else {
+          let records = this.$store.state.records
+          this.$store.state.records.splice(this.currentStep,records.length-this.currentStep-1)
+          this.$store.state.records.push(JSON.parse(JSON.stringify(val)))
+        }
+      },
+      deep: true
+    },
+    records: function(val) {
+      this.currentStep = val.length - 1
+    }
   },
   methods: {
     fileChange(e) {
@@ -47,6 +69,26 @@ export default {
       };
       reader.readAsDataURL(file);
     },
+    undo() {
+      if (this.currentStep - 1 >= 0) {
+        this.currentStep--
+      }else{
+        return
+      }
+      this.noWatch = true
+      this.$store.state.page = this.$store.state.records[this.currentStep]
+      console.log(this.$store.state.page)
+    },
+    redo() {
+      if (this.currentStep + 1 < this.records.length) {
+        this.currentStep++
+      }else{
+        return
+      }
+      this.noWatch = true
+      this.$store.state.page = this.$store.state.records[this.currentStep]
+      console.log(this.$store.state.page)
+    }
   },
   components: {
     AttrEditor,
@@ -69,11 +111,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .header-left{
+    .header-left {
       margin-left: 10px;
     }
-    .header-right{
-      a{
+    .header-right {
+      a {
         margin-right: 10px;
       }
     }
@@ -95,11 +137,10 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      .canvas-content{
+      .canvas-content {
         position: relative;
         height: 95%;
-        width: 95%;
-        // height: 1080px;
+        width: 95%; // height: 1080px;
         // width: 1920px;
         // transform-origin: left top;
         // transform: scale(0.6);
