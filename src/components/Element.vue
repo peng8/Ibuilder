@@ -2,6 +2,7 @@
   <div class="baseEle"
        :style="eleStyle"
         @click.stop="selectEl"
+        @mousedown.stop.prevent="dragEvent"
         :class="{selected: comData ? comData.isSelected: ''}">
     <slot></slot>
     <div class="operate" v-if="comData && comData.isSelected" @mousedown="mousedown">
@@ -46,6 +47,10 @@ export default {
   methods: {
     selectEl(){
       this.$store.commit('setSelectedEl', this.comData.uuid)
+    },
+    dragEvent (event) {
+      this.currentItem = 'operate'
+      this.onMouseDown(event)
     },
     mousedown (event) {
       if (event.target.getAttribute('class') === 'operate') {

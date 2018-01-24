@@ -1,7 +1,7 @@
 <template>
   <ui-element :comData="comData">
     <div :style="eleStyle">
-      <input type="text" v-model="comData.text" class="input-class" :style="inputStyle">
+      <input type="text" :value="comData.text" class="input-class" :style="inputStyle">
     </div>
   </ui-element>
 </template>

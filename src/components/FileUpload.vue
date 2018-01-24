@@ -40,6 +40,7 @@ export default {
         console.log(url)
         console.log(urlData)
         this.$emit("fileChange", urlData)
+        this.$emit("urlChange", url)
         this.fileName = input.files[0].name
       })
     }

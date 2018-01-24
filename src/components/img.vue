@@ -1,6 +1,6 @@
 <template>
-  <ui-element :comData="comData">
-    <img src="../assets/logo.png" alt="" :style="eleStyle">
+  <ui-element :comData="comData" v-if="comData">
+    <img :src="comData.src" alt="" :style="eleStyle">
   </ui-element> 
 </template>
 
@@ -13,22 +13,20 @@ export default {
   },
   computed: {
     eleStyle: function() {
-
       let style = {
         'width': '100%',
         'height': '100%'
       }
-
-      for(let key in this.comData.s){
-        let val = this.comData.s[key]
-
-        if(key === 'rotate'){
-          style['transform'] = 'rotate(' + val + 'deg)'
-          continue
+      if (this.comData && this.comData.s) {
+        for(let key in this.comData.s){
+          let val = this.comData.s[key]
+          if(key === 'rotate'){
+            style['transform'] = 'rotate(' + val + 'deg)'
+            continue
+          }
+          style[key] = val
         }
-        style[key] = val
       }
-
       return style
     }
   }
