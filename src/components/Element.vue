@@ -101,7 +101,7 @@ export default {
         case 'tr':
           this.styleData.width = +this.styleData.width + width
           this.styleData.height = +this.styleData.height - height
-          this.styleData.top = +this.styleData.top - height
+          this.styleData.top = +this.styleData.top + height
           break;
         case 'bl':
           this.styleData.width = +this.styleData.width - width
