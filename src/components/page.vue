@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" @click.self.stop.prevent="selectPage" :style="pageStyle">
     <component 
       v-for="(item, index) in comData.elements" 
       :is="item.name"
@@ -12,22 +12,29 @@
 <script>
 export default {
   props:{
-    background:{
-      
-    },
     comData:{
       type: Object
     }
   },
-  data(){
-    return {
-      style: {
-        'background': this.background,
+  computed: {
+    pageStyle(){
+      return {
+        'backgroundColor': this.comData.backgroundColor,
+        'backgroundImage': this.comData.backgroundImage,
+        'backgroundSize': "cover",
       }
     }
   },
+  data(){
+    return {
+      
+    }
+  },
   methods: {
-    
+    selectPage(){
+      console.log("page")
+      this.$store.commit("setSelectedPage")
+    }
   }
 }
 </script>

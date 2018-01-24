@@ -70,6 +70,17 @@ export default new Vuex.Store({
         }
       })
     },
+    setSelectedPage: (state, val) => {
+      state.editorData = state.page
+    },
+    addPage: (state, val) => {
+      state.page = val
+    },
+    addRecord: (state, val) => {
+      state.records.push({
+        page: val
+      })
+    },
     delEl: (state) => {
       let tmpe = state.page.elements.filter((element) => {
         if (element.uuid === state.editorData.uuid) {

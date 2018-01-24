@@ -22,9 +22,7 @@
         <ui-img></ui-img>
       </div>
       <div class="edit-panel">
-        <!-- <input type="file" @change="fileChange"> -->
         <component :is="$store.state.editorData.name + 'Editor'"></component>
-        <!-- <attr-editor></attr-editor> -->
       </div>
     </div>
   </div>
@@ -33,6 +31,8 @@
 <script>
 import AttrEditor from "@/components/AttrEditor.vue"
 import NewEl from "@/components/NewEl.vue"
+import Page from "@/model/Page.js";
+
 export default {
   name: "HelloWorld",
   data() {
@@ -93,6 +93,11 @@ export default {
   components: {
     AttrEditor,
     NewEl,
+  },
+  created(){
+    this.$store.commit("addPage", new Page({
+      elements: [],
+    }))
   }
 };
 </script>
