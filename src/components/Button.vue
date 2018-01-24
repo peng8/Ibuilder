@@ -1,7 +1,9 @@
 <template>
   <ui-element :comData="comData">
-    {{comData.text}}
-  </ui-element>  
+    <button :style="eleStyle" :class="eleClass" class="button">
+      {{comData.text}}
+    </button>
+  </ui-element>
 </template>
 
 <script>
@@ -11,12 +13,33 @@ export default {
 
     },
   },
-  methods: {
-    
-  },
-  data(){
-    return {
+  computed: {
+    eleStyle: function() {
 
+      let style = {
+        'width': '100%',
+        'height': '100%'
+      }
+
+      for(let key in this.comData.s){
+        let val = this.comData.s[key]
+
+        if(key === 'boxShadow'){
+          style['box-shadow'] = '' + (val.color || '#fff') + ' ' + (val.position || '0 0') + ' ' + (val.blur || '0') + ' ' + (val.radius || '0')
+          continue
+        }
+        style[key] = val
+      }
+
+      return style
+    }
+  },
+  methods: {
+
+  },
+  data() {
+    return {
+      eleClass:[]
     }
   }
 }
