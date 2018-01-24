@@ -22,7 +22,13 @@ export default {
       }
 
       for(let key in this.comData.s){
-        style[key] = this.comData.s[key]
+        let val = this.comData.s[key]
+
+        if(key === 'boxShadow'){
+          style['box-shadow'] = '' + (val.color || '#fff') + ' ' + (val.position || '0 0') + ' ' + (val.blur || '0') + ' ' + (val.radius || '0')
+          continue
+        }
+        style[key] = val
       }
 
       return style
