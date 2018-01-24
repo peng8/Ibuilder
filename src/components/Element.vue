@@ -26,44 +26,12 @@ export default {
   },
   data(){
     return {
-      mouseEventType: 'zoom', // 缩放事件， 拖动事件drag
-      startPos: {
+      startPos: { // 记录鼠标开始移动的位置
         x: 0,
         y: 0
       },
-      currentItem: '',
-      styleData: {}
-    }
-  },
-  computed: {
-    eleStyle: function(){
-      return {
-        'top': this.styleData['top'] + 'px',
-        'left': this.styleData['left'] + 'px',
-        'z-index': this.styleData['z-index'],
-        'width': this.styleData['width'] + 'px',
-        'height': this.styleData['height'] + 'px', 
-      }
-    },
-    tBtnStyle () {
-      return {
-        'left': this.styleData['width'] / 2 - 5 + 'px'
-      }
-    },
-    bBtnStyle () {
-      return {
-        'left': this.styleData['width'] / 2 - 5 + 'px'
-      }
-    },
-    lBtnStyle () {
-      return {
-        'top': this.styleData['height'] / 2 - 5 + 'px'
-      }
-    },
-    rBtnStyle () {
-      return {
-        'top': this.styleData['height'] / 2 - 5 + 'px'
-      }
+      currentItem: 'operate', // 当前鼠标操作的对象的class
+      styleData: {} // 样式信息
     }
   },
   methods: {
@@ -72,16 +40,15 @@ export default {
     },
     mousedown (event) {
       if (event.target.getAttribute('class') === 'operate') {
-        this.mouseEventType = 'drag'
+        this.currentItem = 'operate'
       } else {
-        this.mouseEventType = 'zoom'
+        this.currentItem = event.target.getAttribute('class').split(' ')[1]
       }
       this.onMouseDown(event)
     },
     onMouseDown (event) {
       this.startPos.x = event.clientX
       this.startPos.y = event.clientY
-      this.currentItem = event.target.getAttribute('class').split(' ')[1]
       document.addEventListener('mousemove', this.onMouseMove)
       document.addEventListener('mouseup', this.onMouseUp)
     },
@@ -92,11 +59,7 @@ export default {
       }
       let width = newPos.x - this.startPos.x
       let height = newPos.y - this.startPos.y
-      if (this.mouseEventType === 'zoom') {
-        this.resetPosition(width, height)
-      } else {
-        this.setPosition(width, height)
-      }
+      this.resetPosition(width, height)
       this.startPos.x = newPos.x
       this.startPos.y = newPos.y
     },
@@ -113,6 +76,10 @@ export default {
     /** @description 缩放时重置属性 */
     resetPosition (width, height) {
       switch (this.currentItem) {
+        case 'operate':
+          this.styleData.top = this.styleData.top + height
+          this.styleData.left = this.styleData.left + width
+          break;
         case 'tl':
           this.styleData.width = this.styleData.width - width
           this.styleData.height = this.styleData.height - height
@@ -150,15 +117,41 @@ export default {
         default:
           break;
       }
-    },
-    /** @description 鼠标拖动时重置属性 */
-    setPosition (width, height) {
-      this.styleData.top = this.styleData.top + height
-      this.styleData.left = this.styleData.left + width
     }
   },
   created () {
     this.styleData = this.comData
+  },
+  computed: {
+    eleStyle: function(){
+      return {
+        'top': this.styleData['top'] + 'px',
+        'left': this.styleData['left'] + 'px',
+        'z-index': this.styleData['z-index'],
+        'width': this.styleData['width'] + 'px',
+        'height': this.styleData['height'] + 'px', 
+      }
+    },
+    tBtnStyle () {
+      return {
+        'left': this.styleData['width'] / 2 - 5 + 'px'
+      }
+    },
+    bBtnStyle () {
+      return {
+        'left': this.styleData['width'] / 2 - 5 + 'px'
+      }
+    },
+    lBtnStyle () {
+      return {
+        'top': this.styleData['height'] / 2 - 5 + 'px'
+      }
+    },
+    rBtnStyle () {
+      return {
+        'top': this.styleData['height'] / 2 - 5 + 'px'
+      }
+    }
   }
 }
 </script>
