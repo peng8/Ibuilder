@@ -1,11 +1,10 @@
 <template>
   <div class="baseEle"
        :style="eleStyle"
-        @mousedown="mousedown"
         @click.stop="selectEl"
         :class="{selected: comData ? comData.isSelected: ''}">
     <slot></slot>
-    <div class="operate" v-if="comData && comData.isSelected" @mousedown="zoomElement">
+    <div class="operate" v-if="comData && comData.isSelected" @mousedown="mousedown">
       <div class="circleArea tl operate_btn"></div>
       <div class="circleArea bl operate_btn"></div>
       <div class="circleArea tr operate_btn"></div>
@@ -32,80 +31,51 @@ export default {
         x: 0,
         y: 0
       },
-      currentItem: ''
+      currentItem: '',
+      styleData: {}
     }
   },
   computed: {
     eleStyle: function(){
       return {
-        'top': this.comData['top'] + 'px',
-        'left': this.comData['left'] + 'px',
-        'z-index': this.comData['z-index'],
-        'width': this.comData['width'] + 'px',
-        'height': this.comData['height'] + 'px', 
+        'top': this.styleData['top'] + 'px',
+        'left': this.styleData['left'] + 'px',
+        'z-index': this.styleData['z-index'],
+        'width': this.styleData['width'] + 'px',
+        'height': this.styleData['height'] + 'px', 
       }
     },
     tBtnStyle () {
       return {
-        'left': this.comData['width'] / 2 - 5 + 'px'
+        'left': this.styleData['width'] / 2 - 5 + 'px'
       }
     },
     bBtnStyle () {
       return {
-        'left': this.comData['width'] / 2 - 5 + 'px'
+        'left': this.styleData['width'] / 2 - 5 + 'px'
       }
     },
     lBtnStyle () {
       return {
-        'top': this.comData['height'] / 2 - 5 + 'px'
+        'top': this.styleData['height'] / 2 - 5 + 'px'
       }
     },
     rBtnStyle () {
       return {
-        'top': this.comData['height'] / 2 - 5 + 'px'
+        'top': this.styleData['height'] / 2 - 5 + 'px'
       }
     }
   },
   methods: {
-    // mousedown(downEvent) {
-    //   let ele = this.comData
-    //   let startY = downEvent.clientY
-    //   let startX = downEvent.clientX
-    //   let startTop = ele["top"]
-    //   let startLeft = ele["left"]
-    //   let move = moveEvent => {
-    //     let currX = moveEvent.clientX
-    //     let currY = moveEvent.clientY
-    //     //todo: 这里也可以直接赋值改变comData,相当于不经过commit直接修改了值
-    //     //todo: 大量移动操作，频繁提交，可能会有问题
-    //     //ele["top"] = currY - startY + startTop
-    //     //ele["left"] = currX - startX + startLeft
-    //     this.$store.commit("setPosition", {
-    //       top: currY - startY + startTop,
-    //       left: currX - startX + startLeft,
-    //       uuid: ele.uuid,
-    //     })
-    //   }
-    //   let up = () => {
-    //     document.removeEventListener("mousemove", move)
-    //     document.removeEventListener("mouseup", up)
-    //     //this.$store.commit("setPosition", ele)
-    //   };
-    //   document.addEventListener("mousemove", move)
-    //   document.addEventListener("mouseup", up)
-    // },
     selectEl(){
       this.$store.commit('setSelectedEl', this.comData.uuid)
-      //this.comData.isSelected = true
-      // console.log(this.comData)
     },
     mousedown (event) {
-      this.mouseEventType = 'drag'
-      this.onMouseDown(event)
-    },
-    zoomElement (event) {
-      this.mouseEventType = 'zoom'
-      event.stopImmediatePropagation()
+      if (event.target.getAttribute('class') === 'operate') {
+        this.mouseEventType = 'drag'
+      } else {
+        this.mouseEventType = 'zoom'
+      }
       this.onMouseDown(event)
     },
     onMouseDown (event) {
@@ -133,65 +103,62 @@ export default {
     onMouseUp () {
       document.removeEventListener('mousemove', this.onMouseMove)
       document.removeEventListener('mouseup', this.onMouseUp)
+      // todo 提交style信息
+       // this.$store.commit('setPosition', {
+      //   top: this.comData['top'] + height,
+      //   left: this.comData['left'] + width,
+      //   uuid: this.comData.uuid,
+      // })
     },
     /** @description 缩放时重置属性 */
     resetPosition (width, height) {
-      let newWidth = ''
-      let newHeigth = ''
-      let newTop = ''
-      let newleft = ''
       switch (this.currentItem) {
         case 'tl':
-          newWidth = this.comData.width - width
-          newHeigth = oldHeight - height
-          newTop = oldTop + height
-          newleft = oldLeft + width
+          this.styleData.width = this.styleData.width - width
+          this.styleData.height = this.styleData.height - height
+          this.styleData.top = this.styleData.top + height
+          this.styleData.left = this.styleData.left + width
           break;
         case 'tr':
-          newWidth = this.comData.width + width
-          newHeigth = oldHeight - height
-          newTop = oldTop - height
+          this.styleData.width = this.styleData.width + width
+          this.styleData.height = this.styleData.height - height
+          this.styleData.top = this.styleData.top - height
           break;
         case 'bl':
-          newWidth = this.comData.width - width
-          newHeigth = oldHeight + height
-          newleft = oldLeft + width
+          this.styleData.width = this.styleData.width - width
+          this.styleData.height = this.styleData.height + height
+          this.styleData.left = this.styleData.left + width
           break;
         case 'br':
-          newWidth = this.comData.width + width
-          newHeigth = oldHeight + height
+          this.styleData.width = this.styleData.width + width
+          this.styleData.height = this.styleData.height + height
           break;
         case 't':
-          newHeigth = oldHeight - height
-          newTop = oldTop + height
+          this.styleData.height = this.styleData.height - height
+          this.styleData.top = this.styleData.top + height
           break;
         case 'b':
-          newHeigth = oldHeight + height
+          this.styleData.height = this.styleData.height + height
           break;
         case 'l':
-          newWidth = this.comData.width - width
-          newleft = oldLeft + width
+          this.styleData.width = this.styleData.width - width
+          this.styleData.left = this.styleData.left + width
           break;
         case 'r':
-          newWidth = this.comData.width + width
+          this.styleData.width = this.styleData.width + width
           break;
         default:
           break;
       }
-      this.$store.commit('setPosition', {
-        top: this.comData['top'] + height,
-        left: this.comData['left'] + width,
-        uuid: this.comData.uuid,
-      })
     },
     /** @description 鼠标拖动时重置属性 */
     setPosition (width, height) {
-      this.$store.commit('setPosition', {
-        top: this.comData['top'] + height,
-        left: this.comData['left'] + width,
-        uuid: this.comData.uuid,
-      })
+      this.styleData.top = this.styleData.top + height
+      this.styleData.left = this.styleData.left + width
     }
+  },
+  created () {
+    this.styleData = this.comData
   }
 }
 </script>
