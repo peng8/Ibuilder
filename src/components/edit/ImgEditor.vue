@@ -1,16 +1,18 @@
 <template>
   <div>
     <attr-editor></attr-editor>
-    <div class="field">
-      <label class="label">透明度</label>
-      <div class="control">
-        <input class="input" type="text" v-model="$store.state.editorData.s['opacity']">
+    <div class="subEditor">
+      <div class="field">
+        <label class="label">透明度</label>
+        <div class="control">
+          <input class="input" type="text" v-model="$store.state.editorData.s['opacity']">
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">旋转</label>
-      <div class="control">
-        <input class="input" type="text" v-model="$store.state.editorData.s['rotate']">
+      <div class="field">
+        <label class="label">旋转</label>
+        <div class="control">
+          <input class="input" type="text" v-model="$store.state.editorData.s['rotate']">
+        </div>
       </div>
     </div>
   </div>
@@ -29,5 +31,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.subEditor {
+  margin-top: 0.75rem;
+}
 </style>
