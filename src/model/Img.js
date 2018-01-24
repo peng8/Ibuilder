@@ -4,5 +4,9 @@ export default class Img extends Element {
     super(option)
     this.height = '100'
     this.width = '100'
+    this.s = {
+      opacity: '',
+      rotate: ''
+    }
   }
 }
