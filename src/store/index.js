@@ -66,6 +66,12 @@ export default new Vuex.Store({
         }
       })
     },
+    setSelectedPage: (state, val) => {
+      state.editorData = state.page
+    },
+    addPage: (state, val) => {
+      state.page = val
+    },
     addRecord: (state, val) => {
       state.records.push({
         page: val

@@ -33,6 +33,8 @@
 <script>
 import AttrEditor from "@/components/AttrEditor.vue"
 import NewEl from "@/components/NewEl.vue"
+import Page from "@/model/Page.js";
+
 export default {
   name: "HelloWorld",
   data() {
@@ -51,6 +53,11 @@ export default {
   components: {
     AttrEditor,
     NewEl,
+  },
+  created(){
+    this.$store.commit("addPage", new Page({
+      elements: [],
+    }))
   }
 };
 </script>

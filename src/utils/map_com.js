@@ -7,6 +7,7 @@ import Button from "@/components/Button.vue"
 import Input from "@/components/Input.vue"
 import Text from "@/components/Text.vue"
 
+import PageEditor from "@/components/edit/PageEditor.vue"
 import ButtonEditor from "@/components/edit/ButtonEditor.vue"
 import InputEditor from "@/components/edit/InputEditor.vue"
 import ImgEditor from "@/components/edit/ImgEditor.vue"
@@ -24,6 +25,7 @@ const com = {
   "ui-imgEditor": ImgEditor,
   "ui-inputEditor": InputEditor,
   "ui-textEditor": TextEditor,
+  "ui-pageEditor": PageEditor,
 }
 
 var install = function(){
