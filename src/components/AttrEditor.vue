@@ -18,6 +18,18 @@
         <input class="input" type="number" v-model.number="$store.state.editorData.left">
       </div>
     </div>
+    <div class="field">
+      <label class="label">宽度</label>
+      <div class="control">
+        <input class="input" type="number" v-model.number="$store.state.editorData.width">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">高度</label>
+      <div class="control">
+        <input class="input" type="number" v-model.number="$store.state.editorData.height">
+      </div>
+    </div>
   </div>
 </template>
 
