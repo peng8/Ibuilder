@@ -36,9 +36,6 @@ export default {
     fileChange (val) {
       this.$store.state.editorData.src = val
     }
-  },
-  created () {
-    console.log(this.$store.state.editorData)
   }
 }
 </script>

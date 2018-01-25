@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     selectPage(){
-      console.log("page")
       this.$store.commit("setSelectedPage")
     }
   }

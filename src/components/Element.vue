@@ -2,9 +2,9 @@
   <div class="baseEle"
     :style="eleStyle"
     @mousedown.prevent="dragEvent"
-    :class="{selected: comData ? comData.isSelected: ''}">
+    :class="{selected: comData.uuid === $store.state.editorData.uuid}">
     <slot></slot>
-    <div class="operate" v-if="comData && comData.isSelected" @mousedown="mousedown">
+    <div class="operate" v-if="comData.uuid === $store.state.editorData.uuid" @mousedown="mousedown">
       <div class="tl circleArea"></div>
       <div class="bl circleArea"></div>
       <div class="tr circleArea"></div>
@@ -26,7 +26,7 @@ export default {
         return {
           'top': 0,
           'left': 0,
-          'z-index': 0,
+          'zindex': 0,
           'width': 0,
           'height': 0, 
         }
@@ -44,13 +44,10 @@ export default {
     }
   },
   methods: {
-    selectEl(){
-      // this.$store.commit('setSelectedEl', this.comData.uuid)
-    },
     dragEvent (event) {
       this.currentItem = 'operate'
       this.onMouseDown(event)
-      this.$store.commit('setSelectedEl', this.comData.uuid)
+      this.$store.commit('setEditorData', this.comData)
     },
     mousedown (event) {
       event.stopPropagation()
@@ -87,7 +84,7 @@ export default {
         'left': this.styleData.left,
         'width': this.styleData.width,
         'height': this.styleData.height,
-        'z-index': this.styleData['z-index'],
+        'zindex': this.styleData['zindex'],
         'uuid': this.comData.uuid
       })
     },
@@ -139,6 +136,11 @@ export default {
   },
   created () {
     this.styleData = JSON.parse(JSON.stringify(this.comData))
+    this.styleData['zindex'] = this.$store.state.page.elements.length - 1
+    this.$store.commit('setElementStyle', {
+      'zindex': this.styleData['zindex'],
+      'uuid': this.comData.uuid
+    })
   },
   watch: {
     comData: {
@@ -153,7 +155,7 @@ export default {
       return {
         'top': this.styleData.top + 'px',
         'left': this.styleData.left + 'px',
-        'z-index': this.styleData['z-index'],
+        'z-index': this.styleData['zindex'],
         'width': this.styleData.width + 'px',
         'height': this.styleData.height + 'px', 
       }
