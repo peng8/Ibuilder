@@ -20,11 +20,14 @@ export default {
         'width': '100%',
         'height': '100%'
       }
+      if (this.comData.backgroundSrc) {
+        style.background = 'no-repeat center/cover url(' + this.comData.backgroundSrc + ')'
+      }
 
-      for(let key in this.comData.s){
+      for (let key in this.comData.s) {
         let val = this.comData.s[key]
 
-        if(key === 'boxShadow'){
+        if (key === 'boxShadow') {
           style['box-shadow'] = '' + (val.color || '#fff') + ' ' + (val.position || '0 0') + ' ' + (val.blur || '0') + ' ' + (val.radius || '0')
           continue
         }
@@ -39,7 +42,7 @@ export default {
   },
   data() {
     return {
-      eleClass:[]
+      eleClass: []
     }
   }
 }

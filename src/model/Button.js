@@ -4,6 +4,7 @@ export default class Button extends Element {
     super(option)
     this.width = 100
     this.height = 40
+    this.backgroundSrc = ''
 
     this.s = {
       'background-color': null,

@@ -3,6 +3,12 @@
     <attr-editor></attr-editor>
     <div class="subEditor">
       <div class="field">
+        <label class="label">背景图片</label>
+        <div class="control">
+          <FileUpLoad @urlChange="fileChange"></FileUpLoad>
+        </div>
+      </div>
+      <div class="field">
         <label class="label">背景色</label>
         <div class="control">
           <input class="input" type="text" v-model="$store.state.editorData.s['background-color']">
@@ -99,9 +105,16 @@
 
 <script>
 import AttrEditor from "@/components/AttrEditor.vue"
+import FileUpLoad from "@/components/FileUpLoad.vue"
 export default {
   components: {
     AttrEditor,
+    FileUpLoad
+  },
+  methods: {
+    fileChange(val) {
+      this.$store.state.editorData.backgroundSrc = val
+    }
   }
 }
 </script>
