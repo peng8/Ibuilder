@@ -63,7 +63,7 @@ export default {
   name: "HelloWorld",
   data() {
     return {
-      records: this.$store.state.records,
+      records: null,
       currentStep: 0,
       noWatch: false,
       pageData: null
@@ -75,9 +75,10 @@ export default {
         if (this.noWatch) {
           this.noWatch = false
         } else {
-          // let records = this.$store.state.records
-          // this.$store.state.records.splice(this.currentStep,records.length-this.currentStep-1)
+          let records = this.$store.state.records
+          this.$store.state.records.splice(this.currentStep + 1, records.length - this.currentStep)
           this.$store.state.records.push(JSON.parse(JSON.stringify(val)))
+          this.records = this.$store.state.records
         }
       },
       deep: true
@@ -98,34 +99,35 @@ export default {
     undo() {
       if (this.currentStep - 1 >= 0) {
         this.currentStep--
-      }else{
+      } else {
         return
       }
       this.noWatch = true
-      this.$store.state.page = this.$store.state.records[this.currentStep]
-      console.log(this.$store.state.page)
+      this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
+      this.pageData = this.$store.state.page
     },
     redo() {
       if (this.currentStep + 1 < this.records.length) {
         this.currentStep++
-      }else{
+      } else {
         return
       }
       this.noWatch = true
-      this.$store.state.page = this.$store.state.records[this.currentStep]
-      console.log(this.$store.state.page)
+      this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
+      this.pageData = this.$store.state.page
     }
   },
   components: {
     AttrEditor,
     NewEl,
   },
-  created(){
+  created() {
     this.$store.commit("addPage", new Page({
       elements: [],
     }))
 
     this.pageData = this.$store.state.page
+    this.records = this.$store.state.records
   }
 };
 </script>
