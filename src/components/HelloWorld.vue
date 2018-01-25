@@ -110,6 +110,7 @@ export default {
       } else {
         return
       }
+      this.$store.commit('setSelectedPage')
       this.noWatch = true
       this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
       // this.pageData = this.$store.state.page
@@ -120,6 +121,7 @@ export default {
       } else {
         return
       }
+      this.$store.commit('setSelectedPage')
       this.noWatch = true
       this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
       // this.pageData = this.$store.state.page
