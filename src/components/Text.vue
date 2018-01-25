@@ -48,5 +48,8 @@ export default {
 <style lang="less" scoped>
 .text-wrap{
   display: flex;
+  word-wrap:break-word;
+  word-break: normal;  
+  overflow: hidden;
 }
 </style>

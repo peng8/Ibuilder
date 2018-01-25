@@ -1,39 +1,74 @@
 <template>
   <div>
-    <div class="field">
-      <label class="label">显示器宽度</label>
-      <div class="control">
-        <input class="input" type="text" v-model="width">
+    <div class="form-title">操作面板</div>
+
+    <form-item-title :title="'基本'"></form-item-title>
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label">显示器宽度</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input is-small" type="text" v-model="width">
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">显示器高度</label>
-      <div class="control">
-        <input class="input" type="text" v-model="height">
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label">显示器高度</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input is-small" type="text" v-model="height">
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">缩放比</label>
-      <div class="control">
-        <input class="input" type="text" v-model="scale" disabled>
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label">缩放比</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input is-small" type="text" v-model="scale" disabled>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">背景色</label>
-      <div class="control">
-        <input class="input" type="text" v-model="$store.state.page.backgroundColor">
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label">背景色</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input is-small" type="color" v-model="$store.state.page.backgroundColor">
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <label class="label">背景图</label>
-      <div class="control">
-        <FileUpLoad @fileChange="fileChange"></FileUpLoad>
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label">背景图</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <FileUpLoad @fileChange="fileChange"></FileUpLoad>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import formItemTitle from '../formItemTitle'
 import FileUpLoad from "@/components/FileUpLoad.vue"
 export default {
   data () {
@@ -45,7 +80,7 @@ export default {
     }
   },
   methods: {
-    fileChange(urlData){
+    fileChange(urlData) {
       this.$store.state.page.backgroundImage = urlData
     },
     init () {
@@ -101,12 +136,25 @@ export default {
       return scale.toFixed(2)
     }
   },
-  components:{
+  components: {
     FileUpLoad,
+    formItemTitle
   }
 };
 </script>
 
 <style lang="less" scoped>
+.label {
+  width: 50px;
+  font-weight: initial;
+}
 
+.form-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.field-wrap {
+  padding: 0.75rem 0;
+}
 </style>

@@ -17,7 +17,7 @@
           </span>
           <span>预览</span>
         </a>
-        <a class="button is-primary is-small">
+        <a class="button is-primary is-small" @click="save">
           <span class="icon">
             <i class="fas fa-save"></i>
           </span>
@@ -58,7 +58,7 @@
 import AttrEditor from "@/components/AttrEditor.vue"
 import NewEl from "@/components/NewEl.vue"
 import Page from "@/model/Page.js";
-
+import queryString from "@/utils/queryString.js"
 export default {
   name: "HelloWorld",
   data() {
@@ -69,6 +69,14 @@ export default {
       pageData: null
     };
   },
+  created() {
+    this.$store.commit("addPage", new Page({
+      elements: [],
+    }))
+
+    this.pageData = this.$store.state.page
+    this.records = this.$store.state.records
+  },
   watch: {
     pageData: {
       handler: function(val) {
@@ -78,7 +86,7 @@ export default {
           let records = this.$store.state.records
           this.$store.state.records.splice(this.currentStep + 1, records.length - this.currentStep)
           this.$store.state.records.push(JSON.parse(JSON.stringify(val)))
-          this.records = this.$store.state.records
+          // this.records = this.$store.state.records
         }
       },
       deep: true
@@ -102,9 +110,10 @@ export default {
       } else {
         return
       }
+      this.$store.commit('setSelectedPage')
       this.noWatch = true
       this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
-      this.pageData = this.$store.state.page
+      // this.pageData = this.$store.state.page
     },
     redo() {
       if (this.currentStep + 1 < this.records.length) {
@@ -112,22 +121,30 @@ export default {
       } else {
         return
       }
+      this.$store.commit('setSelectedPage')
       this.noWatch = true
       this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
       this.pageData = this.$store.state.page
+    },
+    save(){ 
+      var form = new FormData()
+      form.append("id", queryString("id"))
+      form.append("content", this.$store.state.page)
+      this.axios.post('/centaur/page/update', form)
+      .then((res) => {
+        console.log(res)
+      })
+    },
+    loadData(){
+      this.axios.get('/centaur/page/getById?id=' + queryString('id'))
+      .then((res) => {
+        console.log(res)
+      })
     }
   },
   components: {
     AttrEditor,
     NewEl,
-  },
-  created() {
-    this.$store.commit("addPage", new Page({
-      elements: [],
-    }))
-
-    this.pageData = this.$store.state.page
-    this.records = this.$store.state.records
   }
 };
 </script>
@@ -148,19 +165,19 @@ export default {
     justify-content: space-between;
     .header-left {
       margin-left: 10px;
-      .logo{
+      .logo {
         color: hsl(171, 100%, 41%);
         font-size: 28px;
         vertical-align: middle;
         margin-right: 5px;
       }
-      .text{
+      .text {
         font-size: 18px;
         font-weight: bold;
         color: white;
         margin-right: 5px;
       }
-      .tag{
+      .tag {
         height: 16px;
       }
     }

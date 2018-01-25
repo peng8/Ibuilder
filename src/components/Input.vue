@@ -1,6 +1,6 @@
 <template>
   <ui-element :comData="comData">
-    <div :style="eleStyle">
+    <div :style="eleStyle" class="input">
       <input type="text" :value="comData.text" class="input-class" :style="inputStyle">
     </div>
   </ui-element>
@@ -22,6 +22,10 @@ export default {
       let style = {
         'width': '100%',
         'height': '100%'
+      }
+
+      if (this.comData.backgroundSrc) {
+        style.background = 'no-repeat center/cover url(' + this.comData.backgroundSrc + ')'
       }
 
       for (let key in this.comData.s) {

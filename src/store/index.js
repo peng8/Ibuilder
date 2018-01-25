@@ -89,8 +89,8 @@ export default new Vuex.Store({
         }
         return true
       })
-
       state.page.elements = tmpe
+      state.editorData = state.page
     },
     resetLayer (state, val) {
       let currentIndex = state.editorData['zindex']

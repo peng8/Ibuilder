@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import installCom from '@/utils/map_com.js'
 import axios from '@/utils/http.js'
+import 'bulma/css/bulma.css'
 Vue.prototype.axios = axios
 installCom()
 

@@ -4,6 +4,7 @@ export default class Input extends Element {
     super(option)
     this.width = 200
     this.height = 40
+    this.backgroundSrc = ''
 
     this.s = {
       boxShadow: {},
