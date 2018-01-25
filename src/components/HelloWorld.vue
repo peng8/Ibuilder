@@ -40,7 +40,7 @@ export default {
       records: this.$store.state.records,
       currentStep: 0,
       noWatch: false,
-      pageData: this.$store.state.page
+      pageData: null
     };
   },
   watch: {
@@ -49,8 +49,8 @@ export default {
         if (this.noWatch) {
           this.noWatch = false
         } else {
-          let records = this.$store.state.records
-          this.$store.state.records.splice(this.currentStep,records.length-this.currentStep-1)
+          // let records = this.$store.state.records
+          // this.$store.state.records.splice(this.currentStep,records.length-this.currentStep-1)
           this.$store.state.records.push(JSON.parse(JSON.stringify(val)))
         }
       },
@@ -98,6 +98,8 @@ export default {
     this.$store.commit("addPage", new Page({
       elements: [],
     }))
+
+    this.pageData = this.$store.state.page
   }
 };
 </script>
