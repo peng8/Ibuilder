@@ -69,6 +69,14 @@ export default {
       pageData: null
     };
   },
+  created() {
+    this.$store.commit("addPage", new Page({
+      elements: [],
+    }))
+
+    this.pageData = this.$store.state.page
+    this.records = this.$store.state.records
+  },
   watch: {
     pageData: {
       handler: function(val) {
@@ -78,7 +86,7 @@ export default {
           let records = this.$store.state.records
           this.$store.state.records.splice(this.currentStep + 1, records.length - this.currentStep)
           this.$store.state.records.push(JSON.parse(JSON.stringify(val)))
-          this.records = this.$store.state.records
+          // this.records = this.$store.state.records
         }
       },
       deep: true
@@ -104,7 +112,7 @@ export default {
       }
       this.noWatch = true
       this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
-      this.pageData = this.$store.state.page
+      // this.pageData = this.$store.state.page
     },
     redo() {
       if (this.currentStep + 1 < this.records.length) {
@@ -114,20 +122,12 @@ export default {
       }
       this.noWatch = true
       this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
-      this.pageData = this.$store.state.page
+      // this.pageData = this.$store.state.page
     }
   },
   components: {
     AttrEditor,
     NewEl,
-  },
-  created() {
-    this.$store.commit("addPage", new Page({
-      elements: [],
-    }))
-
-    this.pageData = this.$store.state.page
-    this.records = this.$store.state.records
   }
 };
 </script>
@@ -148,19 +148,19 @@ export default {
     justify-content: space-between;
     .header-left {
       margin-left: 10px;
-      .logo{
+      .logo {
         color: hsl(171, 100%, 41%);
         font-size: 28px;
         vertical-align: middle;
         margin-right: 5px;
       }
-      .text{
+      .text {
         font-size: 18px;
         font-weight: bold;
         color: white;
         margin-right: 5px;
       }
-      .tag{
+      .tag {
         height: 16px;
       }
     }

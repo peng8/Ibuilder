@@ -24,6 +24,10 @@ export default {
         'height': '100%'
       }
 
+      if (this.comData.backgroundSrc) {
+        style.background = 'no-repeat center/cover url(' + this.comData.backgroundSrc + ')'
+      }
+
       for (let key in this.comData.s) {
         let val = this.comData.s[key]
 
