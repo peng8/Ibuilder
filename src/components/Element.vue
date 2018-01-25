@@ -3,7 +3,9 @@
     :style="eleStyle"
     @mousedown.prevent="dragEvent"
     :class="{selected: comData.uuid === $store.state.editorData.uuid}">
-    <slot></slot>
+    <div class="elmentBox" :style="elmentBoxStyle">
+      <slot></slot>
+    </div>
     <div class="operate" v-if="comData.uuid === $store.state.editorData.uuid" @mousedown="mousedown">
       <div class="tl circleArea"></div>
       <div class="bl circleArea"></div>
@@ -40,7 +42,8 @@ export default {
         y: 0
       },
       currentItem: 'operate', // 当前鼠标操作的对象的class
-      styleData: {} // 样式信息
+      styleData: {}, // 样式信息
+      scale: 1
     }
   },
   methods: {
@@ -79,14 +82,9 @@ export default {
       document.removeEventListener('mousemove', this.onMouseMove)
       document.removeEventListener('mouseup', this.onMouseUp)
       // todo 提交style信息
-      this.$store.commit('setElementStyle', {
-        'top': this.styleData.top,
-        'left': this.styleData.left,
-        'width': this.styleData.width,
-        'height': this.styleData.height,
-        'zindex': this.styleData['zindex'],
-        'uuid': this.comData.uuid
-      })
+      let eleData = JSON.parse(JSON.stringify(this.styleData))
+      this.transformPositionData(eleData, this.scale, false)
+      this.$store.commit('setElementStyle', eleData)
     },
     /** @description 缩放时重置属性 */
     resetPosition (width, height) {
@@ -132,22 +130,40 @@ export default {
         default:
           break;
       }
+    },
+    transformPositionData (dataObj, scale, flag = true) {
+      let attrs = ['left', 'top', 'width', 'height']
+      if (flag) {
+        for (let i = 0, len = attrs.length; i < len; i++) {
+          dataObj[attrs[i]] = (dataObj[attrs[i]] * scale).toFixed(2)
+        }
+      } else {
+        for (let i = 0, len = attrs.length; i < len; i++) {
+          dataObj[attrs[i]] = (dataObj[attrs[i]] / scale).toFixed(2)
+        }
+      }
     }
   },
   created () {
     this.styleData = JSON.parse(JSON.stringify(this.comData))
+    this.transformPositionData(this.styleData, this.scale)
     this.styleData['zindex'] = this.$store.state.page.elements.length - 1
     this.$store.commit('setElementStyle', {
       'zindex': this.styleData['zindex'],
       'uuid': this.comData.uuid
     })
+    this.scale = this.$store.state.page.scale
   },
   watch: {
     comData: {
       handler: function (val) {
         this.styleData = JSON.parse(JSON.stringify(this.comData))
+        this.transformPositionData(this.styleData, this.scale)
       },
       deep: true
+    },
+    pageScale (val) {
+      this.scale = val
     }
   },
   computed: {
@@ -178,6 +194,17 @@ export default {
     rBtnStyle () {
       return {
         'top': this.styleData['height'] / 2 - 5 + 'px'
+      }
+    },
+    pageScale () {
+      console.log(this.$store.state.page.scale)
+      return this.$store.state.page.scale
+    },
+    elmentBoxStyle () {
+      return {
+        'width': 1 / this.scale * 100 +'%',
+        'height': 1 / this.scale * 100 +'%',
+        'transform': 'scale(' + this.scale + ')'
       }
     }
   }
@@ -281,6 +308,12 @@ export default {
       }
     }
   }
+  .elmentBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    }
 }
 .selected{
   border: 1px dashed aqua;

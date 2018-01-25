@@ -34,6 +34,9 @@ export default {
     selectPage(){
       this.$store.commit("setSelectedPage")
     }
+  },
+  mounted () {
+    this.selectPage()
   }
 }
 </script>

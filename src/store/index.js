@@ -16,6 +16,9 @@ export default new Vuex.Store({
   state: {
     page: {
       name: "ui-page",
+      width: 500,
+      height: 500,
+      scale: 1,
       elements: []
     },
     records: [],
@@ -68,18 +71,6 @@ export default new Vuex.Store({
     setEditorData: (state, val) => {
       state.editorData = val
     },
-    // setSelectedEl: (state, val) => {
-      //查找对象并提交，可以进一步抽象，同时也可以直接在element里修改值
-      // state.page.elements.forEach((value, index, arr) => {
-      //   value.isSelected = false
-      //   if(value.uuid == val){
-      //     //todo: 因为是引用类型，所以直接赋值
-      //     value.isSelected = true
-      //     //可以用action
-      //     state.editorData = value
-      //   }
-      // })
-    // },
     setSelectedPage: (state, val) => {
       state.editorData = state.page
     },
@@ -135,6 +126,11 @@ export default new Vuex.Store({
         }
         state.editorData['zindex'] = 0
       }
+    },
+    setPageInfo (state, val) {
+      state.page.width = val.width
+      state.page.height = val.height
+      state.page.scale = val.scale
     }
   },
   actions: {
