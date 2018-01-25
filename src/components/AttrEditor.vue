@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="field">
+      <button class="button" @click="delel">删除该元素</button>
+    </div>
+    <div class="field">
       <label class="label">文本</label>
       <div class="control">
         <input class="input" type="text" v-model="$store.state.editorData.text">
@@ -53,9 +56,9 @@
 <script>
 export default {
   props: {
-    
+
   },
-  data(){
+  data() {
     return {
 
     }
@@ -64,6 +67,9 @@ export default {
     operateLayer (event) {
       let btnType = event.target.getAttribute('class').split(' ')[0]
       this.$store.commit('resetLayer', btnType)
+    },
+    delel() {
+      this.$store.commit('delEl')
     }
   }
 }
