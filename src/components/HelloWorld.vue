@@ -2,13 +2,39 @@
   <div class="main-container">
     <div class="editor-header">
       <div class="header-left">
-        <span class="tag is-light">UI-Builder V0.1</span>
+        <span class="icon logo">
+          <i class="fas fa-cubes"></i>
+        </span>
+        <span class="text">UI-Builder</span>
+        <span class="tag is-light">
+          V0.1
+        </span>
       </div>
       <div class="header-right">
-        <a class="button is-primary">预览</a>
-        <a class="button is-primary">保存</a>
-        <a class="button is-primary">上一步</a>
-        <a class="button is-primary">下一步</a>
+        <a class="button is-primary is-small">
+          <span class="icon">
+            <i class="fas fa-eye"></i>
+          </span>
+          <span>预览</span>
+        </a>
+        <a class="button is-primary is-small">
+          <span class="icon">
+            <i class="fas fa-save"></i>
+          </span>
+          <span>保存</span>
+        </a>
+        <a class="button is-primary is-small">
+          <span class="icon">
+            <i class="fas fa-undo"></i>
+          </span>
+          <span>上一步</span>
+        </a>
+        <a class="button is-primary is-small">
+          <span class="icon">
+            <i class="fas fa-redo"></i>
+          </span>
+          <span>下一步</span>
+        </a>
       </div>
     </div>
     <div class="editor-content">
@@ -62,13 +88,28 @@ export default {
   width: 100%;
   background-color: #fdfdfd;
   .editor-header {
-    height: 50px;
+    height: 40px;
     background-color: hsl(0, 0%, 21%);
     display: flex;
     align-items: center;
     justify-content: space-between;
     .header-left{
       margin-left: 10px;
+      .logo{
+        color: hsl(171, 100%, 41%);
+        font-size: 28px;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+      .text{
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        margin-right: 5px;
+      }
+      .tag{
+        height: 16px;
+      }
     }
     .header-right{
       a{
