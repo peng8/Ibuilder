@@ -17,7 +17,7 @@
           </span>
           <span>预览</span>
         </a>
-        <a class="button is-primary is-small">
+        <a class="button is-primary is-small" @click="save">
           <span class="icon">
             <i class="fas fa-save"></i>
           </span>
@@ -58,7 +58,7 @@
 import AttrEditor from "@/components/AttrEditor.vue"
 import NewEl from "@/components/NewEl.vue"
 import Page from "@/model/Page.js";
-
+import queryString from "@/utils/queryString.js"
 export default {
   name: "HelloWorld",
   data() {
@@ -124,7 +124,22 @@ export default {
       this.$store.commit('setSelectedPage')
       this.noWatch = true
       this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
-      // this.pageData = this.$store.state.page
+      this.pageData = this.$store.state.page
+    },
+    save(){ 
+      var form = new FormData()
+      form.append("id", queryString("id"))
+      form.append("content", this.$store.state.page)
+      this.axios.post('/centaur/page/update', form)
+      .then((res) => {
+        console.log(res)
+      })
+    },
+    loadData(){
+      this.axios.get('/centaur/page/getById?id=' + queryString('id'))
+      .then((res) => {
+        console.log(res)
+      })
     }
   },
   components: {
