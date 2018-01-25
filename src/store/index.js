@@ -52,32 +52,42 @@ export default new Vuex.Store({
       })
     },
     setElementStyle: (state, val) => {
-      state.page.elements.forEach((value, index, arr) => {
+      state.page.elements.forEach((value, index) => {
         if (value.uuid === val.uuid) {
           // todo: 因为是引用类型，所以直接赋值
-          value.top = val.top || 0
-          value.left = val.left || 0
-          value.width = val.width || 0
-          value.height = val.height || 0
-          value['z-index'] = val['z-index'] || 0
+          if (typeof val.top !== 'undefined') {
+            value.top = val.top
+          }
+          if (typeof val.left !== 'undefined') {
+            value.left = val.left
+          }
+          if (typeof val.width !== 'undefined') {
+            value.width = val.width
+          }
+          if (typeof val.height !== 'undefined') {
+            value.height = val.height
+          }
+          if (typeof val['zindex'] !== 'undefined') {
+            value['zindex'] = val['zindex']
+          }
         }
       })
     },
     setEditorData: (state, val) => {
       state.editorData = val 
     },
-    setSelectedEl: (state, val) => {
+    // setSelectedEl: (state, val) => {
       //查找对象并提交，可以进一步抽象，同时也可以直接在element里修改值
-      state.page.elements.forEach((value, index, arr) => {
-        value.isSelected = false
-        if(value.uuid == val){
-          //todo: 因为是引用类型，所以直接赋值
-          value.isSelected = true
-          //可以用action
-          state.editorData = value
-        }
-      })
-    },
+      // state.page.elements.forEach((value, index, arr) => {
+      //   value.isSelected = false
+      //   if(value.uuid == val){
+      //     //todo: 因为是引用类型，所以直接赋值
+      //     value.isSelected = true
+      //     //可以用action
+      //     state.editorData = value
+      //   }
+      // })
+    // },
     setSelectedPage: (state, val) => {
       state.editorData = state.page
     },
@@ -88,11 +98,45 @@ export default new Vuex.Store({
       state.records.push({
         page: val
       })
+    },
+    resetLayer (state, val) {
+      let currentIndex = state.editorData['zindex']
+      let len = state.page.elements.length
+      if (val === 'forward' && currentIndex < len - 1) {
+        for (let i = 0; i < len; i++) {
+          if (state.page.elements[i]['zindex'] === currentIndex + 1) {
+            state.page.elements[i]['zindex'] = currentIndex
+            state.editorData['zindex'] = currentIndex + 1
+            break
+          }
+        }
+      } else if (val === 'backward' && currentIndex > 0) {
+        for (let i = 0; i < len; i++) {
+          if (state.page.elements[i]['zindex'] === currentIndex - 1) {
+            state.page.elements[i]['zindex'] = currentIndex
+            state.editorData['zindex'] = currentIndex - 1
+            break
+          }
+        }
+      } else if (val === 'top' && currentIndex < len - 1) {
+        for (let i = 0; i < len; i++) {
+          if (state.page.elements[i]['zindex'] > currentIndex) {
+            state.page.elements[i]['zindex'] = state.page.elements[i]['zindex'] - 1
+          }
+        }
+        state.editorData['zindex'] = len - 1
+      } else if (val === 'bottom' && currentIndex > 0) {
+        for (let i = 0; i < len; i++) {
+          if (state.page.elements[i]['zindex'] < currentIndex) {
+            state.page.elements[i]['zindex'] = state.page.elements[i]['zindex'] + 1
+          }
+        }
+        state.editorData['zindex'] = 0
+      }
     }
   },
   actions: {
-    edit(context){
-
+    edit (context) {
     }
   },
   plugins: [recordPlugin]
