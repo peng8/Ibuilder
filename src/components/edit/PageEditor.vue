@@ -84,9 +84,9 @@ export default {
       this.$store.state.page.backgroundImage = urlData
     },
     init () {
-      let page = document.querySelector('.canvas-content')
-      this.sWidth = page.clientWidth - 10
-      this.sHeight = page.clientHeight - 10
+      let page = document.querySelector('.canvas')
+      this.sWidth = page.clientWidth - 20
+      this.sHeight = page.clientHeight - 20
     }
   },
   created () {
