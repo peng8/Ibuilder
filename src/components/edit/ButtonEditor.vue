@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import formItemTitle from '../formItemTitle'
 import AttrEditor from "@/components/AttrEditor.vue"
 import FileUpLoad from "@/components/FileUpLoad.vue"
+import formItemTitle from '../formItemTitle'
 export default {
   components: {
     AttrEditor,
@@ -90,19 +90,5 @@ export default {
 <style lang="less" scoped>
 .subEditor {
   margin-top: 0.75rem;
-}
-
-.label {
-  width: 50px;
-  font-weight: initial;
-}
-
-.form-title {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.field-wrap {
-  padding: 0.75rem 0;
 }
 </style>

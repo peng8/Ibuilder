@@ -209,6 +209,40 @@
       </div>
     </div>
 
+    <form-item-title :title="'事件'"></form-item-title>
+    <div class="field-wrap">
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label">跳转</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <div class="select is-small">
+                <select v-model="$store.state.editorData.goto">
+                  <option v-for="(item, index) in pageList" :key="index" :value="item.id">
+                    {{item.title}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal">
+        <div class="field-label is-small">
+          <label class="label">弹窗</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input is-small" type="text" v-model="$store.state.editorData.modal">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <form-item-title :title="'其他'"></form-item-title>
     <div class="field-wrap">
       <div class="field is-horizontal">
@@ -242,7 +276,7 @@
         <div class="field-body">
           <div class="field">
             <div class="control">
-              <input class="input is-small" type="text" v-model="$store.state.editorData.s['opacity']">
+              <Slider class="is-small" v-model="$store.state.editorData.s['opacity']"></Slider>
             </div>
           </div>
         </div>
@@ -267,14 +301,21 @@
 <script>
 import formItemTitle from './formItemTitle'
 import FileUpLoad from "@/components/FileUpLoad.vue"
+import Slider from "@/components/Slider.vue"
 export default {
   props: {
 
   },
   data() {
     return {
-
+      pageList: []
     }
+  },
+  mounted() {
+    this.axios.post('/centaur/page/pageList?pageSize=100&pageIndex=1')
+      .then((res) => {
+        this.pageList = res.data.list
+      })
   },
   methods: {
     operateLayer(event) {
@@ -290,7 +331,8 @@ export default {
   },
   components: {
     formItemTitle,
-    FileUpLoad
+    FileUpLoad,
+    Slider
   }
 }
 </script>

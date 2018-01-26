@@ -16,8 +16,8 @@ export default new Vuex.Store({
   state: {
     page: {
       name: "ui-page",
-      width: 500,
-      height: 500,
+      width: 1366,
+      height: 768,
       scale: 1,
       elements: []
     },

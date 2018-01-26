@@ -2,10 +2,11 @@
   <div>
     <div class="form-title">操作面板</div>
 
-    <form-item-title :title="'基本'"></form-item-title>
+    <form-item-title :title="'页面信息'"></form-item-title>
+    <div class="field-wrap">
       <div class="field is-horizontal">
         <div class="field-label is-small">
-          <label class="label">显示器宽度</label>
+          <label class="label">宽度</label>
         </div>
         <div class="field-body">
           <div class="field">
@@ -17,7 +18,7 @@
       </div>
       <div class="field is-horizontal">
         <div class="field-label is-small">
-          <label class="label">显示器高度</label>
+          <label class="label">高度</label>
         </div>
         <div class="field-body">
           <div class="field">
@@ -64,13 +65,14 @@
         </div>
       </div>
   </div>
+  </div>
 </template>
 
 <script>
 import formItemTitle from '../formItemTitle'
 import FileUpLoad from "@/components/FileUpLoad.vue"
 export default {
-  data () {
+  data() {
     return {
       width: '100%',
       height: '100%',
@@ -82,28 +84,28 @@ export default {
     fileChange(urlData) {
       this.$store.state.page.backgroundImage = urlData
     },
-    init () {
+    init() {
       let page = document.querySelector('.canvas')
       this.sWidth = page.clientWidth - 20
       this.sHeight = page.clientHeight - 20
     }
   },
-  created () {
+  created() {
     this.width = this.$store.state.page.width
     this.height = this.$store.state.page.height
   },
-  mounted () {
+  mounted() {
     this.init()
   },
   watch: {
-    width (val) {
+    width(val) {
       this.$store.commit('setPageInfo', {
         width: this.width,
         height: this.height,
         scale: this.scale,
       })
     },
-    height (val) {
+    height(val) {
       this.$store.commit('setPageInfo', {
         width: this.width,
         height: this.height,
@@ -112,7 +114,7 @@ export default {
     },
   },
   computed: {
-    scale () {
+    scale() {
       let scale = 1
       let width = parseInt(this.width)
       let height = parseInt(this.height)
@@ -140,17 +142,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.label {
-  width: 50px;
-  font-weight: initial;
-}
 
-.form-title {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.field-wrap {
-  padding: 0.75rem 0;
-}
 </style>

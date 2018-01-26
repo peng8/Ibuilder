@@ -7,6 +7,7 @@ import store from './store'
 import installCom from '@/utils/map_com.js'
 import axios from '@/utils/http.js'
 import 'bulma/css/bulma.css'
+import '@/style/common.css'
 Vue.prototype.axios = axios
 installCom()
 
@@ -17,6 +18,8 @@ new Vue({
   el: '#app',
   store,
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>',
 })

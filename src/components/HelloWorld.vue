@@ -74,10 +74,6 @@ export default {
     };
   },
   created() {
-    this.$store.commit("addPage", new Page({
-      elements: [],
-    }))
-
     this.pageData = this.$store.state.page
     this.records = this.$store.state.records
   },
@@ -160,19 +156,22 @@ export default {
       this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
       this.pageData = this.$store.state.page
     },
-    save(){ 
+    save() {
       var form = new FormData()
       form.append("id", queryString("id"))
-      form.append("content", this.$store.state.page)
+      form.append("content", JSON.stringify(this.$store.state.page))
       this.axios.post('/centaur/page/update', form)
-      .then((res) => {
-        console.log(res)
-      })
+        .then((res) => {
+          console.log(res)
+        })
     },
-    loadData(){
+    loadData() {
       this.axios.get('/centaur/page/getById?id=' + queryString('id'))
       .then((res) => {
         console.log(res)
+        console.log(JSON.parse(res.data.content))
+        let data = JSON.parse(res.data.content);
+        this.$store.commit("addPage", !data ? new Page({ elements: [], }) : data)
       })
     },
     close (val) {

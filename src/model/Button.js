@@ -8,7 +8,7 @@ export default class Button extends Element {
 
     this.s = {
       'background-color': null,
-      'opacity': null,
+      'opacity': 1,
       'padding': null,
       'justify-content': null,
       'border-style': null,
