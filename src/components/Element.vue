@@ -40,7 +40,8 @@ export default {
         y: 0
       },
       currentItem: 'operate', // 当前鼠标操作的对象的class
-      styleData: {} // 样式信息
+      styleData: {}, // 样式信息
+      scale: 1
     }
   },
   methods: {
@@ -79,17 +80,17 @@ export default {
       document.removeEventListener('mousemove', this.onMouseMove)
       document.removeEventListener('mouseup', this.onMouseUp)
       // todo 提交style信息
-      this.$store.commit('setElementStyle', {
-        'top': this.styleData.top,
-        'left': this.styleData.left,
-        'width': this.styleData.width,
-        'height': this.styleData.height,
-        'zindex': this.styleData['zindex'],
-        'uuid': this.comData.uuid
-      })
+      let eleData = JSON.parse(JSON.stringify(this.styleData))
+      eleData.width = parseInt(eleData.width).toFixed(2)
+      eleData.height = parseInt(eleData.height).toFixed(2)
+      eleData.top = parseInt(eleData.top).toFixed(2)
+      eleData.left = parseInt(eleData.left).toFixed(2)
+      this.$store.commit('setElementStyle', eleData)
     },
     /** @description 缩放时重置属性 */
     resetPosition (width, height) {
+      width = width / this.scale
+      height = height / this.scale
       switch (this.currentItem) {
         case 'operate':
           this.styleData.top = +this.styleData.top + height
@@ -141,6 +142,7 @@ export default {
       'zindex': this.styleData['zindex'],
       'uuid': this.comData.uuid
     })
+    this.scale = this.$store.state.page.scale
   },
   watch: {
     comData: {
@@ -148,6 +150,9 @@ export default {
         this.styleData = JSON.parse(JSON.stringify(this.comData))
       },
       deep: true
+    },
+    pageScale (val) {
+      this.scale = val
     }
   },
   computed: {
@@ -179,6 +184,10 @@ export default {
       return {
         'top': this.styleData['height'] / 2 - 5 + 'px'
       }
+    },
+    pageScale () {
+      console.log(this.$store.state.page.scale)
+      return this.$store.state.page.scale
     }
   }
 }
@@ -281,6 +290,12 @@ export default {
       }
     }
   }
+  .elmentBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    }
 }
 .selected{
   border: 1px dashed aqua;

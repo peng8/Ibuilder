@@ -34,6 +34,9 @@ export default {
     selectPage(){
       this.$store.commit("setSelectedPage")
     }
+  },
+  mounted () {
+    this.selectPage()
   }
 }
 </script>
@@ -42,9 +45,9 @@ export default {
 .page{
   width: 100%;
   height: 100%;
+  transform-origin: 0 0;
 }
 .img{
   height: 100%;
 }
 </style>
-
