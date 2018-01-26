@@ -61,5 +61,6 @@ export default {
   height: 100%;
   border: none;
   background: none;
+  outline: none;
 }
 </style>

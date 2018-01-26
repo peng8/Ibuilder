@@ -22,7 +22,8 @@ export default new Vuex.Store({
       elements: []
     },
     records: [],
-    editorData: {}
+    editorData: {},
+    allPageList: []
   },
   mutations: {
     setBackGround: (state, val) => {
@@ -92,7 +93,7 @@ export default new Vuex.Store({
       state.page.elements = tmpe
       state.editorData = state.page
     },
-    resetLayer (state, val) {
+    resetLayer(state, val) {
       let currentIndex = state.editorData['zindex']
       let len = state.page.elements.length
       if (val === 'forward' && currentIndex < len - 1) {
@@ -127,15 +128,14 @@ export default new Vuex.Store({
         state.editorData['zindex'] = 0
       }
     },
-    setPageInfo (state, val) {
+    setPageInfo(state, val) {
       state.page.width = val.width
       state.page.height = val.height
       state.page.scale = val.scale
     }
   },
   actions: {
-    edit (context) {
-    }
+    edit(context) {}
   },
   plugins: [recordPlugin]
 })

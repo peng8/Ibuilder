@@ -312,10 +312,7 @@ export default {
     }
   },
   mounted() {
-    this.axios.post('/centaur/page/pageList?pageSize=100&pageIndex=1')
-      .then((res) => {
-        this.pageList = res.data.list
-      })
+    this.pageList = this.$store.state.allPageList
   },
   methods: {
     operateLayer(event) {

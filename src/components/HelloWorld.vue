@@ -78,6 +78,12 @@ export default {
     this.pageData = this.$store.state.page
     this.records = this.$store.state.records
   },
+  mounted() {
+    this.axios.get('/centaur/page/getDesignedList')
+      .then((res) => {
+        this.$store.state.allPageList = res.data
+      })
+  },
   computed: {
     canvasStyle() {
       let pageInfo = {
@@ -161,7 +167,7 @@ export default {
       var form = new FormData()
       form.append("id", queryString("id"))
       form.append("content", JSON.stringify(this.$store.state.page))
-      this.axios.post('/centaur/page/update', form)
+      this.axios.post('/centaur/page/design', form)
         .then((res) => {
           console.log(res)
         })
