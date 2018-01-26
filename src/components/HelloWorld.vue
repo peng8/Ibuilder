@@ -74,11 +74,12 @@ export default {
     };
   },
   created() {
+    this.loadData()
     this.pageData = this.$store.state.page
     this.records = this.$store.state.records
   },
   computed: {
-    canvasStyle(){
+    canvasStyle() {
       let pageInfo = {
         'width': '95%',
         'height': '95%',
@@ -89,18 +90,18 @@ export default {
         pageInfo.height = parseInt(this.pageHeight || 0) + 'px'
       } else if (this.pageWidth != '100%') {
         pageInfo.width = parseInt(this.pageWidth || 0) + 'px'
-      } else if (this.pageWidth != '100%'){
+      } else if (this.pageWidth != '100%') {
         pageInfo.height = parseInt(this.pageHeight || 0) + 'px'
       }
       return pageInfo
     },
-    pageScale () {
+    pageScale() {
       return this.$store.state.page.scale
     },
-    pageWidth () {
+    pageWidth() {
       return this.$store.state.page.width
     },
-    pageHeight () {
+    pageHeight() {
       return this.$store.state.page.height
     }
   },
@@ -121,7 +122,7 @@ export default {
     records: function(val) {
       this.currentStep = val.length - 1
     },
-    pageScale (val) {
+    pageScale(val) {
       this.scale = val
     }
   },
@@ -167,14 +168,14 @@ export default {
     },
     loadData() {
       this.axios.get('/centaur/page/getById?id=' + queryString('id'))
-      .then((res) => {
-        console.log(res)
-        console.log(JSON.parse(res.data.content))
-        let data = JSON.parse(res.data.content);
-        this.$store.commit("addPage", !data ? new Page({ elements: [], }) : data)
-      })
+        .then((res) => {
+          console.log(res)
+          console.log(JSON.parse(res.data.content))
+          let data = JSON.parse(res.data.content);
+          this.$store.commit("addPage", !data ? new Page({ elements: [], }) : data)
+        })
     },
-    close (val) {
+    close(val) {
       this.modal = val
     }
   },
