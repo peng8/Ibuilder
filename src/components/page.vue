@@ -45,7 +45,6 @@ export default {
 .page{
   width: 100%;
   height: 100%;
-  transform-origin: center center;
 }
 .img{
   height: 100%;

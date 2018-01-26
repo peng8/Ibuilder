@@ -42,7 +42,7 @@
         <new-el></new-el>
       </div>
       <div class="canvas">
-        <div class="canvas-content" :style="canvasStyle">
+        <div class="canvas-content">
           <component :is="$store.state.page.name" :com-data="$store.state.page"></component>
         </div>
         <ui-img></ui-img>
@@ -66,8 +66,7 @@ export default {
       records: null,
       currentStep: 0,
       noWatch: false,
-      pageData: null,
-      scale: 1
+      pageData: null
     };
   },
   created() {
@@ -77,33 +76,6 @@ export default {
 
     this.pageData = this.$store.state.page
     this.records = this.$store.state.records
-  },
-  computed: {
-    canvasStyle(){
-      let pageInfo = {
-        'width': '95%',
-        'height': '95%',
-        'transform': 'scale(' + this.scale + ')'
-      }
-      if (this.pageWidth != '100%' && this.pageHeight != '100%') {
-        pageInfo.width =  parseInt(this.pageWidth || 0) + 'px'
-        pageInfo.height = parseInt(this.pageHeight || 0) + 'px'
-      } else if (this.pageWidth != '100%') {
-        pageInfo.width =  parseInt(this.pageWidth || 0) + 'px'
-      } else if (this.pageWidth != '100%'){
-        pageInfo.height = parseInt(this.pageHeight|| 0) + 'px'
-      }
-      return pageInfo
-    },
-    pageScale () {
-      return this.$store.state.page.scale
-    },
-    pageWidth () {
-      return this.$store.state.page.width
-    },
-    pageHeight () {
-      return this.$store.state.page.height
-    }
   },
   watch: {
     pageData: {
@@ -121,9 +93,6 @@ export default {
     },
     records: function(val) {
       this.currentStep = val.length - 1
-    },
-    pageScale (val) {
-      this.scale = val
     }
   },
   methods: {
@@ -237,8 +206,8 @@ export default {
       align-items: center;
       .canvas-content {
         position: relative;
-        // height: 95%;
-        // width: 95%; // height: 1080px;
+        height: 95%;
+        width: 95%; // height: 1080px;
         // width: 1920px;
         // transform-origin: left top;
         // transform: scale(0.6);
