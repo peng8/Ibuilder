@@ -88,12 +88,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.subEditor {
-  margin-top: 0.75rem;
-  font-weight: initial;
-}
 
-.field-wrap {
-  padding: 0.75rem 0;
-}
 </style>

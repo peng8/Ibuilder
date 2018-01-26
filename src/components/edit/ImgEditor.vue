@@ -2,22 +2,43 @@
   <div>
     <attr-editor></attr-editor>
     <div class="subEditor">
-      <div class="field">
-        <label class="label">修改图片</label>
-        <div class="control">
-          <FileUpLoad @urlChange="fileChange"></FileUpLoad>
+      <form-item-title :title="'页面信息'"></form-item-title>
+      <div class="field-wrap">
+        <div class="field is-horizontal">
+          <div class="field-label is-small">
+            <label class="label">修改图片</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <FileUpLoad @urlChange="fileChange"></FileUpLoad>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">透明度</label>
-        <div class="control">
-          <input class="input" type="text" v-model="$store.state.editorData.s['opacity']">
+        <div class="field is-horizontal">
+          <div class="field-label is-small">
+            <label class="label">透明度</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input class="input is-small" type="text" v-model="$store.state.editorData.s['opacity']">
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label class="label">旋转</label>
-        <div class="control">
-          <input class="input" type="text" v-model="$store.state.editorData.s['rotate']">
+        <div class="field is-horizontal">
+          <div class="field-label is-small">
+            <label class="label">旋转</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input class="input is-small" type="text" v-model="$store.state.editorData.s['rotate']">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -27,13 +48,15 @@
 <script>
 import AttrEditor from "@/components/AttrEditor.vue"
 import FileUpLoad from "@/components/FileUpLoad.vue"
+import formItemTitle from '../formItemTitle'
 export default {
   components: {
     AttrEditor,
-    FileUpLoad
+    FileUpLoad,
+    formItemTitle
   },
   methods: {
-    fileChange (val) {
+    fileChange(val) {
       this.$store.state.editorData.src = val
     }
   }
@@ -41,7 +64,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.subEditor {
-  margin-top: 0.75rem;
-}
+
 </style>

@@ -220,8 +220,8 @@
             <div class="control">
               <div class="select is-small">
                 <select v-model="$store.state.editorData.goto">
-                  <option v-for="(item, index) in pageList" :key="index" :value="item.uuid">
-                    item.name
+                  <option v-for="(item, index) in pageList" :key="index" :value="item.id">
+                    {{item.title}}
                   </option>
                 </select>
               </div>
@@ -312,9 +312,9 @@ export default {
     }
   },
   mounted() {
-    this.axios.post('/centaur/page/pageList')
+    this.axios.post('/centaur/page/pageList?pageSize=100&pageIndex=1')
       .then((res) => {
-        console.log(res)
+        this.pageList = res.data.list
       })
   },
   methods: {

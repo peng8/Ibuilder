@@ -1,0 +1,25 @@
+.select {
+  width: 100%;
+}
+
+.select select {
+  width: 100%;
+}
+
+.subEditor {
+  margin-top: 0.75rem;
+}
+
+.label {
+  width: 50px;
+  font-weight: initial;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.field-wrap {
+  padding: 0.75rem 0;
+}
