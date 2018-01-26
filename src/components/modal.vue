@@ -114,6 +114,7 @@
       right:0;
       bottom:0;
       margin: auto;
+      overflow: hidden;
       transform-origin: center;
       .control.close-btn {
         text-align: right;
