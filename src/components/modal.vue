@@ -1,12 +1,14 @@
 <template>
   <div class="modal-container">
     <div class="preview-content" :style="canvasStyle">
-      <div class="control close-btn" @click="close">
+      <div class="preview" :style="innerStyle">
+        <div class="control close-btn" @click="close">
           <a class="button">
             X
           </a>
         </div>
-      <component :is="$store.state.page.name" :com-data="pageData"></component>
+        <component :is="$store.state.page.name" :com-data="pageData"></component>
+      </div>
     </div>
   </div>
 </template>
@@ -16,6 +18,11 @@
     data () {
       return {
         canvasStyle:{
+          'width': '100%',
+          'height': '100%'
+          // 'transform': 'scale(1)'
+        },
+        innerStyle:{
           'width': '100%',
           'height': '100%',
           'transform': 'scale(1)'
@@ -63,6 +70,10 @@
       this.pageData = this.$store.state.page
       this.getScale()
       this.canvasStyle = {
+        'width': this.pageWidth * this.scale + 'px',
+        'height': this.pageHeight * this.scale + 'px',
+      }
+      this.innerStyle = {
         'width': this.pageWidth + 'px',
         'height': this.pageHeight + 'px',
         'transform': 'scale(' + this.scale + ')'
@@ -73,9 +84,13 @@
     watch: {
       scale (val) {
         this.canvasStyle = {
+          'width': this.pageWidth * this.scale + 'px',
+          'height': this.pageHeight * this.scale + 'px',
+        }
+        this.innerStyle = {
           'width': this.pageWidth + 'px',
           'height': this.pageHeight + 'px',
-          'transform': 'scale(' + val +')'
+          'transform': 'scale(' + this.scale + ')'
         }
       }
     }
@@ -99,8 +114,15 @@
       right:0;
       bottom:0;
       margin: auto;
+      transform-origin: center;
       .control.close-btn {
         text-align: right;
+      }
+      .preview {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-origin: 0 0;
       }
     }
   }
