@@ -3,9 +3,7 @@
     :style="eleStyle"
     @mousedown.prevent="dragEvent"
     :class="{selected: comData.uuid === $store.state.editorData.uuid}">
-    <div class="elmentBox" :style="elmentBoxStyle">
-      <slot></slot>
-    </div>
+    <slot></slot>
     <div class="operate" v-if="comData.uuid === $store.state.editorData.uuid" @mousedown="mousedown">
       <div class="tl circleArea"></div>
       <div class="bl circleArea"></div>
@@ -83,11 +81,16 @@ export default {
       document.removeEventListener('mouseup', this.onMouseUp)
       // todo 提交style信息
       let eleData = JSON.parse(JSON.stringify(this.styleData))
-      this.transformPositionData(eleData, this.scale, false)
+      eleData.width = parseInt(eleData.width).toFixed(2)
+      eleData.height = parseInt(eleData.height).toFixed(2)
+      eleData.top = parseInt(eleData.top).toFixed(2)
+      eleData.left = parseInt(eleData.left).toFixed(2)
       this.$store.commit('setElementStyle', eleData)
     },
     /** @description 缩放时重置属性 */
     resetPosition (width, height) {
+      width = width / this.scale
+      height = height / this.scale
       switch (this.currentItem) {
         case 'operate':
           this.styleData.top = +this.styleData.top + height
@@ -130,23 +133,10 @@ export default {
         default:
           break;
       }
-    },
-    transformPositionData (dataObj, scale, flag = true) {
-      let attrs = ['left', 'top', 'width', 'height']
-      if (flag) {
-        for (let i = 0, len = attrs.length; i < len; i++) {
-          dataObj[attrs[i]] = (dataObj[attrs[i]] * scale).toFixed(2)
-        }
-      } else {
-        for (let i = 0, len = attrs.length; i < len; i++) {
-          dataObj[attrs[i]] = (dataObj[attrs[i]] / scale).toFixed(2)
-        }
-      }
     }
   },
   created () {
     this.styleData = JSON.parse(JSON.stringify(this.comData))
-    this.transformPositionData(this.styleData, this.scale)
     this.styleData['zindex'] = this.$store.state.page.elements.length - 1
     this.$store.commit('setElementStyle', {
       'zindex': this.styleData['zindex'],
@@ -158,7 +148,6 @@ export default {
     comData: {
       handler: function (val) {
         this.styleData = JSON.parse(JSON.stringify(this.comData))
-        this.transformPositionData(this.styleData, this.scale)
       },
       deep: true
     },
@@ -199,13 +188,6 @@ export default {
     pageScale () {
       console.log(this.$store.state.page.scale)
       return this.$store.state.page.scale
-    },
-    elmentBoxStyle () {
-      return {
-        'width': 1 / this.scale * 100 +'%',
-        'height': 1 / this.scale * 100 +'%',
-        'transform': 'scale(' + this.scale + ')'
-      }
     }
   }
 }
