@@ -117,7 +117,6 @@ export default {
       let scale = 1
       let width = parseInt(this.width)
       let height = parseInt(this.height)
-      let page = document.querySelector('.canvas-content')
       if ((this.width == '100%' && this.height == '100%') || typeof this.sWidth !== 'number' || this.sWidth === 0) {
         return scale
       }
@@ -131,8 +130,6 @@ export default {
         height = this.sHeight
         width = this.width * scale
       }
-      page.style.width = width + 'px'
-      page.style.height = height + 'px'
       return scale.toFixed(2)
     }
   },
