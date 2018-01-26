@@ -11,7 +11,7 @@
         </span>
       </div>
       <div class="header-right">
-        <a class="button is-primary is-small">
+        <a class="button is-primary is-small" @click="modal=true">
           <span class="icon">
             <i class="fas fa-eye"></i>
           </span>
@@ -51,6 +51,7 @@
         <component :is="$store.state.editorData.name + 'Editor'"></component>
       </div>
     </div>
+    <modal v-if="modal" @closeModal='close'></modal>
   </div>
 </template>
 
@@ -59,6 +60,7 @@ import AttrEditor from "@/components/AttrEditor.vue"
 import NewEl from "@/components/NewEl.vue"
 import Page from "@/model/Page.js";
 import queryString from "@/utils/queryString.js"
+import Modal from "@/components/modal.vue"
 export default {
   name: "HelloWorld",
   data() {
@@ -67,7 +69,8 @@ export default {
       currentStep: 0,
       noWatch: false,
       pageData: null,
-      scale: 1
+      scale: 1,
+      modal: false
     };
   },
   created() {
@@ -171,11 +174,15 @@ export default {
       .then((res) => {
         console.log(res)
       })
+    },
+    close (val) {
+      this.modal = val
     }
   },
   components: {
     AttrEditor,
     NewEl,
+    Modal
   }
 };
 </script>

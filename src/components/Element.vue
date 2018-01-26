@@ -1,18 +1,26 @@
 <template>
-  <div class="baseEle"
-    :style="eleStyle"
-    @mousedown.prevent="dragEvent"
-    :class="{selected: comData.uuid === $store.state.editorData.uuid}">
-    <slot></slot>
-    <div class="operate" v-if="comData.uuid === $store.state.editorData.uuid" @mousedown="mousedown">
-      <div class="tl circleArea"></div>
-      <div class="bl circleArea"></div>
-      <div class="tr circleArea"></div>
-      <div class="br circleArea"></div>
-      <div class="t rectangleArea" :style="tBtnStyle"></div>
-      <div class="l rectangleArea" :style="lBtnStyle"></div>
-      <div class="r rectangleArea" :style="rBtnStyle"></div>
-      <div class="b rectangleArea" :style="bBtnStyle"></div>
+  <div>
+    <div class="baseEle design"
+      v-if="!isPreview"
+      :style="eleStyle"
+      @mousedown.prevent="dragEvent"
+      :class="{selected: comData.uuid === $store.state.editorData.uuid}">
+      <slot></slot>
+      <div class="operate" v-if="comData.uuid === $store.state.editorData.uuid" @mousedown="mousedown">
+        <div class="tl circleArea"></div>
+        <div class="bl circleArea"></div>
+        <div class="tr circleArea"></div>
+        <div class="br circleArea"></div>
+        <div class="t rectangleArea" :style="tBtnStyle"></div>
+        <div class="l rectangleArea" :style="lBtnStyle"></div>
+        <div class="r rectangleArea" :style="rBtnStyle"></div>
+        <div class="b rectangleArea" :style="bBtnStyle"></div>
+      </div>
+    </div>
+    <div class="baseEle"
+      v-else
+      :style="eleStyle">
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -188,6 +196,9 @@ export default {
     pageScale () {
       console.log(this.$store.state.page.scale)
       return this.$store.state.page.scale
+    },
+    isPreview () {
+      return this.$store.state.page.preview
     }
   }
 }
@@ -200,7 +211,7 @@ export default {
 .baseEle {
   position: absolute;
   user-select: none;
-  &:hover {
+  &.design:hover {
     border: 1px solid #8799A6;
     cursor: move; 
   }
