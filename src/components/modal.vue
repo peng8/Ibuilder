@@ -20,6 +20,7 @@
         canvasStyle:{
           'width': '100%',
           'height': '100%'
+          // 'transform': 'scale(1)'
         },
         innerStyle:{
           'width': '100%',
@@ -60,7 +61,7 @@
         this.$emit('closeModal', false)
       },
       formatData (data) {
-        let result = parseInt(data)
+        let result = parseFloat(data)
         if (!Number.isInteger(result)) {
           result = result.toFixed(2)
         }

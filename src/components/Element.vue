@@ -143,7 +143,7 @@ export default {
       }
     },
     formatData (data) {
-      let result = parseInt(data)
+      let result = parseFloat(data)
       if (!Number.isInteger(result)) {
         result = result.toFixed(2)
       }
@@ -152,11 +152,6 @@ export default {
   },
   created () {
     this.styleData = JSON.parse(JSON.stringify(this.comData))
-    this.styleData['zindex'] = this.$store.state.page.elements.length - 1
-    this.$store.commit('setElementStyle', {
-      'zindex': this.styleData['zindex'],
-      'uuid': this.comData.uuid
-    })
     this.scale = this.$store.state.page.scale
   },
   watch: {
