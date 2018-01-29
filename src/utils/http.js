@@ -7,12 +7,13 @@ var instance = axios.create({
     'Content-Type': 'application/json; charset=UTF-8',
     'X-Requested-With': 'XMLHttpRequest',
     // "accessToken": "utry-968d47e2017611e8a416000c2907a862",
-    'accessToken': queryString("accessToken"),
+    //'accessToken': queryString("accessToken"),
   },
 })
 
 instance.interceptors.request.use(
   config => {
+    config.headers.accessToken = queryString("accessToken")
     return config
   },
   err => {
