@@ -20,7 +20,8 @@
     </div>
     <div class="baseEle"
       v-else
-      :style="eleStyle">
+      :style="eleStyle"
+      @click="goto(comData.goto)">
       <slot></slot>
     </div>
   </div>
@@ -152,6 +153,18 @@ export default {
         result = result.toFixed(2)
       }
       return result
+    },
+    goto(id) {
+      console.log(id)
+      let gotoPage = this.$store.state.allPageList.filter((page) => {
+        console.log(page.id)
+        if (page.id === id) {
+          return true
+        }
+        return false
+      })
+      console.log(gotoPage)
+      this.$store.state.page = JSON.parse(gotoPage[0].content)
     }
   },
   created () {

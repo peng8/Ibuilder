@@ -3,7 +3,7 @@
     <div :style="eleStyle" class="text-wrap">
       {{comData.text}}
       <iframe class="iframe" v-show="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
-      <div class="hover" v-if=""></div>
+      <div class="hover" v-if="isPreview"></div>
     </div>
   </ui-element>
 </template>
@@ -19,6 +19,9 @@
       return {
         iframeUrl: ''
       }
+    },
+    mounted() {
+      this.iframeUrl = this.comData.iframeUrl
     },
     methods: {
 
@@ -45,11 +48,9 @@
         }
 
         return style
-      }
-    },
-    data() {
-      return {
-
+      },
+      isPreview () {
+        return this.$store.state.page.preview
       }
     }
   }
@@ -70,6 +71,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1;
   }
   .hover{
     position: absolute;

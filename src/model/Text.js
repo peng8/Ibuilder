@@ -4,6 +4,7 @@ export default class Text extends Element {
     super(option)
     this.width = 200
     this.height = 100
+    this.iframeUrl = ''
 
     this.s = {
       boxShadow: {}
