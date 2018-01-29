@@ -7,7 +7,17 @@ export default class Img extends Element {
     this.src = 'https://www.baidu.com/img/bd_logo1.png'
     this.s = {
       opacity: '',
-      rotate: ''
+      rotate: '',
+      'border-style': '',
+      'border-width': '',
+      'border-color': '',
+      'border-radius': '',
+      'boxShadow': {
+        'color': null,
+        'radius': null,
+        'position': null,
+        'blur': null
+      }
     }
   }
 }

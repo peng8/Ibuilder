@@ -10,16 +10,16 @@
       <div class="field is-horizontal">
         <div class="control" @click="operateLayer">
           <a class="forward button is-small">
-            ↑
+            上移一层
           </a>
           <a class="top button is-small">
-            top
+            置顶
           </a>
           <a class="backward button is-small">
-            ↓
+            下移一层
           </a>
           <a class="bottom button is-small">
-            bottom
+            置底
           </a>
         </div>
       </div>
@@ -77,8 +77,8 @@
       </div>
     </div>
 
-    <form-item-title :title="'阴影'"></form-item-title>
-    <div class="field-wrap">
+    <form-item-title :title="'阴影'" v-if="$store.state.editorData.s.boxShadow"></form-item-title>
+    <div class="field-wrap" v-if="$store.state.editorData.s.boxShadow">
       <div class="field is-horizontal">
         <div class="field-label is-small">
           <label class="label">阴影颜色</label>
@@ -181,9 +181,9 @@
       </div>
     </div>
 
-    <form-item-title :title="'对齐方式'"></form-item-title>
+    <form-item-title :title="'对齐方式'" v-if="$store.state.editorData.s['justify-content'] || $store.state.editorData.s['align-items']"></form-item-title>
     <div class="field-wrap">
-      <div class="field is-horizontal">
+      <div class="field is-horizontal" v-if="$store.state.editorData.s['justify-content']">
         <div class="field-label is-small">
           <label class="label">横向</label>
         </div>
@@ -195,7 +195,7 @@
           </div>
         </div>
       </div>
-      <div class="field is-horizontal">
+      <div class="field is-horizontal" v-if="$store.state.editorData.s['align-items']">
         <div class="field-label is-small">
           <label class="label">纵向</label>
         </div>
@@ -281,7 +281,7 @@
           </div>
         </div>
       </div>
-      <div class="field is-horizontal">
+      <div class="field is-horizontal" v-if="$store.state.editorData.s['padding']">
         <div class="field-label is-small">
           <label class="label">内边距</label>
         </div>
