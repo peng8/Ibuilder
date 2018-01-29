@@ -1,6 +1,5 @@
 <template>
   <div>
-    <attr-editor></attr-editor>
     <div class="subEditor">
       <form-item-title :title="'文字'"></form-item-title>
       <div class="field-wrap">
@@ -82,6 +81,7 @@
         </div>
       </div>
     </div>
+    <attr-editor></attr-editor>
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <attr-editor></attr-editor>
     <div class="subEditor">
       <form-item-title :title="'页面信息'"></form-item-title>
       <div class="field-wrap">
@@ -16,32 +15,9 @@
             </div>
           </div>
         </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-small">
-            <label class="label">透明度</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <input class="input is-small" type="text" v-model="$store.state.editorData.s['opacity']">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-small">
-            <label class="label">旋转</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <input class="input is-small" type="text" v-model="$store.state.editorData.s['rotate']">
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
+    <attr-editor></attr-editor>
   </div>
 </template>
 

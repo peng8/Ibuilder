@@ -4,12 +4,8 @@
       <div class="preview" :style="innerStyle">
         <component :is="$store.state.page.name" :com-data="pageData"></component>
       </div>
-      <div class="control close-btn" @click="close">
-        <a class="button">
-          X
-        </a>
-      </div>
     </div>
+    <button class="modal-close is-large" aria-label="close" @click="close"></button>
   </div>
 </template>
 <script>
@@ -70,8 +66,8 @@
     },
     mounted () {
       let page = document.querySelector('.preview-content')
-      this.sWidth = page.clientWidth - 20
-      this.sHeight = page.clientHeight - 20
+      this.sWidth = page.clientWidth - 120
+      this.sHeight = page.clientHeight - 70
       this.pageWidth = this.$store.state.page.width
       this.pageHeight = this.$store.state.page.height
       this.pageData = this.$store.state.page
@@ -127,10 +123,10 @@
       background: #fff;
       width: 100px;
       height: 100px;
-      top: 0;
-      left: 0;
-      right:0;
-      bottom:0;
+      top: 60px;
+      right: 50px;
+      left: 50px;
+      bottom:60px;
       margin: auto;
       overflow: hidden;
       transform-origin: center;

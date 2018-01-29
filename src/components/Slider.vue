@@ -15,7 +15,7 @@ export default {
   props: {
     value: {
       type: [Number, String],
-      default: 0
+      default: 1
     }
   },
   data() {

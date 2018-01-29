@@ -6,7 +6,7 @@ export default class Img extends Element {
     this.width = '100'
     this.src = 'https://www.baidu.com/img/bd_logo1.png'
     this.s = {
-      opacity: '',
+      opacity: 1,
       rotate: '',
       'border-style': '',
       'border-width': '',
