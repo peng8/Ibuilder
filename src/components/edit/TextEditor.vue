@@ -65,6 +65,22 @@
           </div>
         </div>
       </div>
+
+      <form-item-title :title="'内嵌iframe'"></form-item-title>
+      <div class="field-wrap">
+        <div class="field is-horizontal">
+          <div class="field-label is-small">
+            <label class="label">地址</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input class="input is-small" type="text" v-model="$store.state.editorData.s['iframe-url']">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

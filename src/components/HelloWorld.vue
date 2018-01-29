@@ -56,212 +56,225 @@
 </template>
 
 <script>
-import AttrEditor from "@/components/AttrEditor.vue"
-import NewEl from "@/components/NewEl.vue"
-import Page from "@/model/Page.js";
-import queryString from "@/utils/queryString.js"
-import Modal from "@/components/modal.vue"
-export default {
-  name: "HelloWorld",
-  data() {
-    return {
-      records: null,
-      currentStep: 0,
-      noWatch: false,
-      pageData: null,
-      scale: 1,
-      modal: false
-    };
-  },
-  created() {
-    this.loadData()
-    this.pageData = this.$store.state.page
-    this.records = this.$store.state.records
-  },
-  mounted() {
-    this.axios.get('/centaur/page/getDesignedList')
-      .then((res) => {
-        this.$store.state.allPageList = res.data
-      })
-  },
-  computed: {
-    canvasStyle() {
-      let pageInfo = {
-        'width': '95%',
-        'height': '95%',
-        'transform': 'scale(' + this.scale + ')'
-      }
-      if (this.pageWidth != '100%' && this.pageHeight != '100%') {
-        pageInfo.width = parseInt(this.pageWidth || 0) + 'px'
-        pageInfo.height = parseInt(this.pageHeight || 0) + 'px'
-      } else if (this.pageWidth != '100%') {
-        pageInfo.width = parseInt(this.pageWidth || 0) + 'px'
-      } else if (this.pageWidth != '100%') {
-        pageInfo.height = parseInt(this.pageHeight || 0) + 'px'
-      }
-      return pageInfo
-    },
-    pageScale() {
-      return this.$store.state.page.scale
-    },
-    pageWidth() {
-      return this.$store.state.page.width
-    },
-    pageHeight() {
-      return this.$store.state.page.height
-    }
-  },
-  watch: {
-    pageData: {
-      handler: function(val) {
-        if (this.noWatch) {
-          this.noWatch = false
-        } else {
-          let records = this.$store.state.records
-          this.$store.state.records.splice(this.currentStep + 1, records.length - this.currentStep)
-          this.$store.state.records.push(JSON.parse(JSON.stringify(val)))
-          // this.records = this.$store.state.records
-        }
-      },
-      deep: true
-    },
-    records: function(val) {
-      this.currentStep = val.length - 1
-    },
-    pageScale(val) {
-      this.scale = val
-    }
-  },
-  methods: {
-    fileChange(e) {
-      let file = e.target.files[0];
-      let reader = new FileReader();
-      reader.onload = e => {
-        this.$store.commit("setBackGround", e.target.result);
+  import AttrEditor from "@/components/AttrEditor.vue"
+  import NewEl from "@/components/NewEl.vue"
+  import Page from "@/model/Page.js";
+  import queryString from "@/utils/queryString.js"
+  import Modal from "@/components/modal.vue"
+  import cloneData from "@/utils/cloneData.js"
+  import message from "./message.js"
+  export default {
+    name: "HelloWorld",
+    data() {
+      return {
+        records: null,
+        currentStep: 0,
+        noWatch: false,
+        pageData: null,
+        scale: 1,
+        modal: false
       };
-      reader.readAsDataURL(file);
     },
-    undo() {
-      if (this.currentStep - 1 >= 0) {
-        this.currentStep--
-      } else {
-        return
-      }
-      this.$store.commit('setSelectedPage')
-      this.noWatch = true
-      this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
-      // this.pageData = this.$store.state.page
-    },
-    redo() {
-      if (this.currentStep + 1 < this.records.length) {
-        this.currentStep++
-      } else {
-        return
-      }
-      this.$store.commit('setSelectedPage')
-      this.noWatch = true
-      this.$store.state.page = JSON.parse(JSON.stringify(this.$store.state.records[this.currentStep]))
+    created() {
+      this.loadData()
       this.pageData = this.$store.state.page
+      this.records = this.$store.state.records
     },
-    save() {
-      var form = new FormData()
-      form.append("id", queryString("id"))
-      form.append("content", JSON.stringify(this.$store.state.page))
-      this.axios.post('/centaur/page/design', form)
+    mounted() {
+      this.axios.get('/centaur/page/getDesignedList')
         .then((res) => {
-          console.log(res)
+          this.$store.state.allPageList = res.data
         })
     },
-    loadData() {
-      this.axios.get('/centaur/page/getById?id=' + queryString('id'))
-        .then((res) => {
-          console.log(res)
-          console.log(JSON.parse(res.data.content))
-          let data = JSON.parse(res.data.content);
-          this.$store.commit("addPage", !data ? new Page({ elements: [], }) : data)
-        })
+    computed: {
+      canvasStyle() {
+        let pageInfo = {
+          'width': '95%',
+          'height': '95%',
+          'transform': 'scale(' + this.scale + ')'
+        }
+        if (this.pageWidth != '100%' && this.pageHeight != '100%') {
+          pageInfo.width = parseInt(this.pageWidth || 0) + 'px'
+          pageInfo.height = parseInt(this.pageHeight || 0) + 'px'
+        } else if (this.pageWidth != '100%') {
+          pageInfo.width = parseInt(this.pageWidth || 0) + 'px'
+        } else if (this.pageWidth != '100%') {
+          pageInfo.height = parseInt(this.pageHeight || 0) + 'px'
+        }
+        return pageInfo
+      },
+      pageScale() {
+        return this.$store.state.page.scale
+      },
+      pageWidth() {
+        return this.$store.state.page.width
+      },
+      pageHeight() {
+        return this.$store.state.page.height
+      }
     },
-    close(val) {
-      this.modal = val
+    watch: {
+      pageData: {
+        handler: function (val) {
+          console.log(this.noWatch)
+          if (this.noWatch) {
+            this.noWatch = false
+          } else {
+            let records = this.$store.state.records
+            this.$store.state.records.splice(this.currentStep + 1, records.length - this.currentStep - 1)
+            this.$store.state.records.push(cloneData(val))
+            this.records = this.$store.state.records
+          }
+        },
+        deep: true
+      },
+      records: function (val) {
+        this.currentStep = val.length - 1
+      },
+      pageScale(val) {
+        this.scale = val
+      }
+    },
+    methods: {
+      fileChange(e) {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.onload = e => {
+          this.$store.commit("setBackGround", e.target.result);
+        };
+        reader.readAsDataURL(file);
+      },
+      undo() {
+        if (this.currentStep - 1 >= 0) {
+          this.currentStep--
+        } else {
+          return
+        }
+        this.$store.commit('setSelectedPage')
+        this.noWatch = true
+        this.$store.state.page = cloneData(this.$store.state.records[this.currentStep])
+        this.pageData = this.$store.state.page
+      },
+      redo() {
+        if (this.currentStep + 1 < this.records.length) {
+          this.currentStep++
+        } else {
+          return
+        }
+        this.$store.commit('setSelectedPage')
+        this.noWatch = true
+        this.$store.state.page = cloneData(this.$store.state.records[this.currentStep])
+        this.pageData = this.$store.state.page
+      },
+      save() {
+        var form = new FormData()
+        form.append("id", queryString("id"))
+        form.append("content", JSON.stringify(this.$store.state.page))
+        this.axios.post('/centaur/page/design', form)
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((error) => {
+            message.danger('保存失败22222222222222')
+            setTimeout(()=>{
+              message.danger('11111111')
+            },1000)
+          })
+      },
+      loadData() {
+        this.axios.get('/centaur/page/getById?id=' + queryString('id'))
+          .then((res) => {
+            // console.log(res)
+            // console.log(JSON.parse(res.data.content))
+            let data = JSON.parse(res.data.content);
+            this.$store.commit("addPage", !data ? new Page({
+              elements: [],
+            }) : data)
+          })
+      },
+      close(val) {
+        this.modal = val
+      }
+    },
+    components: {
+      AttrEditor,
+      NewEl,
+      Modal
     }
-  },
-  components: {
-    AttrEditor,
-    NewEl,
-    Modal
-  }
-};
+  };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-.main-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  background-color: #fdfdfd;
-  .editor-header {
-    height: 40px;
-    background-color: hsl(0, 0%, 21%);
+  .main-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .header-left {
-      margin-left: 10px;
-      .logo {
-        color: hsl(171, 100%, 41%);
-        font-size: 28px;
-        vertical-align: middle;
-        margin-right: 5px;
-      }
-      .text {
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
-        margin-right: 5px;
-      }
-      .tag {
-        height: 16px;
-      }
-    }
-    .header-right {
-      a {
-        margin-right: 10px;
-      }
-    }
-  }
-  .editor-content {
-    flex: 1;
-    display: flex;
-    .page-view {
-      width: 70px;
-      height: 100%;
-      background-color: black;
-      color: white;
-      opacity: 0.7;
-    }
-    .canvas {
-      flex: 1;
-      height: 100%;
-      position: relative;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: #fdfdfd;
+    .editor-header {
+      height: 40px;
+      background-color: hsl(0, 0%, 21%);
       display: flex;
-      justify-content: center;
       align-items: center;
-      overflow: hidden;
-      .canvas-content {
-        position: relative;
-        flex-shrink: 0;
-        border: 1px solid hsl(0, 0%, 21%);
+      justify-content: space-between;
+      .header-left {
+        margin-left: 10px;
+        .logo {
+          color: hsl(171, 100%, 41%);
+          font-size: 28px;
+          vertical-align: middle;
+          margin-right: 5px;
+        }
+        .text {
+          font-size: 18px;
+          font-weight: bold;
+          color: white;
+          margin-right: 5px;
+        }
+        .tag {
+          height: 16px;
+        }
+      }
+      .header-right {
+        a {
+          margin-right: 10px;
+        }
       }
     }
-    .edit-panel {
-      width: 300px;
-      height: 100%;
-      border: 1px solid #c6c6c6;
-      padding: 10px;
-      overflow-y: auto;
+    .editor-content {
+      flex: 1;
+      display: flex;
+      .page-view {
+        width: 70px;
+        height: 100%;
+        background-color: black;
+        color: white;
+        opacity: 0.7;
+      }
+      .canvas {
+        flex: 1;
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        .canvas-content {
+          position: relative;
+          flex-shrink: 0;
+          border: 1px solid hsl(0, 0%, 21%);
+        }
+      }
+      .edit-panel {
+        width: 300px;
+        height: 100%;
+        border: 1px solid #c6c6c6;
+        padding: 10px;
+        overflow-y: auto;
+      }
     }
   }
-}
+
 </style>
