@@ -42,7 +42,6 @@ export default new Vuex.Store({
     setPosition: (state, val) => {
       state.page.elements.forEach((value, index, arr) => {
         if (value.uuid === val.uuid) {
-          // todo: 因为是引用类型，所以直接赋值
           value.top = val.top || 0
           value.left = val.left || 0
         }
@@ -51,7 +50,6 @@ export default new Vuex.Store({
     setElementStyle: (state, val) => {
       state.page.elements.forEach((value, index) => {
         if (value.uuid === val.uuid) {
-          // todo: 因为是引用类型，所以直接赋值
           if (typeof val.top !== 'undefined') {
             value.top = val.top
           }

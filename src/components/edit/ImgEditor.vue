@@ -18,18 +18,6 @@
         </div>
         <div class="field is-horizontal">
           <div class="field-label is-small">
-            <label class="label">透明度</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <input class="input is-small" type="text" v-model="$store.state.editorData.s['opacity']">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-small">
             <label class="label">旋转</label>
           </div>
           <div class="field-body">

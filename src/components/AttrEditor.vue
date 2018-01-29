@@ -245,7 +245,7 @@
 
     <form-item-title :title="'其他'"></form-item-title>
     <div class="field-wrap">
-      <div class="field is-horizontal">
+      <div class="field is-horizontal" v-if="typeof $store.state.editorData['src'] === 'undefined'">
         <div class="field-label is-small">
           <label class="label">背景图片</label>
         </div>

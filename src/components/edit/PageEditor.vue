@@ -112,6 +112,10 @@ export default {
         scale: this.scale,
       })
     },
+    pageData () {
+      this.width = this.$store.state.page.width
+      this.height = this.$store.state.page.height
+    }
   },
   computed: {
     scale() {
@@ -132,6 +136,9 @@ export default {
         width = this.width * scale
       }
       return scale.toFixed(2)
+    },
+    pageData () {
+      return this.$store.state.page
     }
   },
   components: {
