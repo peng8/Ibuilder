@@ -1,6 +1,6 @@
 <template>
   <ui-element :comData="comData">
-    <button :style="eleStyle" :class="eleClass" class="button" @click="goto(comData.goto)">
+    <button :style="eleStyle" :class="eleClass" class="button">
       {{comData.text}}
     </button>
   </ui-element>
@@ -35,20 +35,6 @@ export default {
       }
 
       return style
-    }
-  },
-  methods: {
-    goto(id) {
-      console.log(id)
-      let gotoPage = this.$store.state.allPageList.filter((page) => {
-        console.log(page.id)
-        if (page.id === id) {
-          return true
-        }
-        return false
-      })
-      console.log(gotoPage)
-      this.$store.state.page = JSON.parse(gotoPage[0].content)
     }
   },
   data() {

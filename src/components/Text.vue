@@ -2,7 +2,7 @@
   <ui-element :comData="comData">
     <div :style="eleStyle" class="text-wrap">
       {{comData.text}}
-      <iframe class="iframe" v-show="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
+      <iframe class="iframe" v-if="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
     </div>
   </ui-element>
 </template>
@@ -18,6 +18,9 @@
       return {
         iframeUrl: ''
       }
+    },
+    mounted() {
+      this.iframeUrl = this.comData.iframeUrl
     },
     methods: {
 
@@ -45,11 +48,6 @@
 
         return style
       }
-    },
-    data() {
-      return {
-
-      }
     }
   }
 
@@ -64,12 +62,13 @@
     overflow: hidden;
   }
 
-  .iframe{
+  .iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1;
   }
 
 </style>
