@@ -89,10 +89,10 @@ export default {
       document.removeEventListener('mouseup', this.onMouseUp)
       // todo 提交style信息
       let eleData = JSON.parse(JSON.stringify(this.styleData))
-      eleData.width = parseInt(eleData.width).toFixed(2)
-      eleData.height = parseInt(eleData.height).toFixed(2)
-      eleData.top = parseInt(eleData.top).toFixed(2)
-      eleData.left = parseInt(eleData.left).toFixed(2)
+      eleData.width = this.formatData(eleData.width)
+      eleData.height = this.formatData(eleData.height)
+      eleData.top = this.formatData(eleData.top)
+      eleData.left = this.formatData(eleData.left)
       this.$store.commit('setElementStyle', eleData)
     },
     /** @description 缩放时重置属性 */
@@ -141,15 +141,17 @@ export default {
         default:
           break;
       }
+    },
+    formatData (data) {
+      let result = parseFloat(data)
+      if (!Number.isInteger(result)) {
+        result = result.toFixed(2)
+      }
+      return result
     }
   },
   created () {
     this.styleData = JSON.parse(JSON.stringify(this.comData))
-    this.styleData['zindex'] = this.$store.state.page.elements.length - 1
-    this.$store.commit('setElementStyle', {
-      'zindex': this.styleData['zindex'],
-      'uuid': this.comData.uuid
-    })
     this.scale = this.$store.state.page.scale
   },
   watch: {
@@ -194,7 +196,6 @@ export default {
       }
     },
     pageScale () {
-      console.log(this.$store.state.page.scale)
       return this.$store.state.page.scale
     },
     isPreview () {

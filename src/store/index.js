@@ -36,6 +36,7 @@ export default new Vuex.Store({
       })
     },
     addElement: (state, val) => {
+      val.zindex = state.page.elements.length
       state.page.elements.push(val)
     },
     setPosition: (state, val) => {

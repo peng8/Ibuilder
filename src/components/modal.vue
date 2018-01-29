@@ -54,11 +54,18 @@
           height = this.sHeight
           width = width * scale
         }
-        this.scale = scale.toFixed(2)
+        this.scale = this.formatData(scale)
       },
       close () {
         this.pageData.preview = false
         this.$emit('closeModal', false)
+      },
+      formatData (data) {
+        let result = parseFloat(data)
+        if (!Number.isInteger(result)) {
+          result = result.toFixed(2)
+        }
+        return result
       }
     },
     mounted () {
