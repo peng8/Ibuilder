@@ -14,8 +14,8 @@
     data () {
       return {
         canvasStyle:{
-          'width': '100%',
-          'height': '100%'
+          'width': '90%',
+          'height': '90%'
           // 'transform': 'scale(1)'
         },
         innerStyle:{
@@ -37,7 +37,7 @@
         let width = parseInt(this.pageWidth)
         let height = parseInt(this.pageHeight)
         if ((this.pageWidth == '100%' && this.pageHeight == '100%') || typeof this.sWidth !== 'number' || this.sWidth === 0) {
-          return scale
+          scale = 0.9
         }
         if (width > this.sWidth) {
           scale = this.sWidth / width

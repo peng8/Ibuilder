@@ -4,6 +4,7 @@
       v-if="!isPreview"
       :style="eleStyle"
       @mousedown.prevent="dragEvent"
+      @contextmenu.prevent="operateElements"
       :class="{selected: comData.uuid === $store.state.editorData.uuid}">
       <slot></slot>
       <div class="operate" v-if="comData.uuid === $store.state.editorData.uuid" @mousedown="mousedown">
@@ -56,6 +57,9 @@ export default {
     dragEvent (event) {
       this.currentItem = 'operate'
       this.onMouseDown(event)
+      this.$store.commit('setEditorData', this.comData)
+    },
+    operateElements (event) {
       this.$store.commit('setEditorData', this.comData)
     },
     mousedown (event) {
@@ -223,6 +227,7 @@ export default {
     top: 0px;
     bottom: 0px;
     outline: 1px dashed @borderColor;
+    z-index: 99999;
     .circleArea {
       width: @width;
       height: @width;

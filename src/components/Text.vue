@@ -3,6 +3,7 @@
     <div :style="eleStyle" class="text-wrap">
       {{comData.text}}
       <iframe class="iframe" v-show="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
+      <div class="hover" v-if=""></div>
     </div>
   </ui-element>
 </template>
@@ -63,8 +64,14 @@
     word-break: normal;
     overflow: hidden;
   }
-
   .iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hover{
     position: absolute;
     top: 0;
     left: 0;
