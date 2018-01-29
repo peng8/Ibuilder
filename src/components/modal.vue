@@ -20,7 +20,6 @@
         canvasStyle:{
           'width': '100%',
           'height': '100%'
-          // 'transform': 'scale(1)'
         },
         innerStyle:{
           'width': '100%',
@@ -54,11 +53,18 @@
           height = this.sHeight
           width = width * scale
         }
-        this.scale = scale.toFixed(2)
+        this.scale = this.formatData(scale)
       },
       close () {
         this.pageData.preview = false
         this.$emit('closeModal', false)
+      },
+      formatData (data) {
+        let result = parseInt(data)
+        if (!Number.isInteger(result)) {
+          result = result.toFixed(2)
+        }
+        return result
       }
     },
     mounted () {
