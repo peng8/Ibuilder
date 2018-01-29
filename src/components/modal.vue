@@ -29,7 +29,6 @@
         pageHeight: 0,
         pageData: {},
         scale: 1,
-        pageData: {}
       }
     },
     methods: {
@@ -70,7 +69,7 @@
       this.sHeight = page.clientHeight - 70
       this.pageWidth = this.$store.state.page.width
       this.pageHeight = this.$store.state.page.height
-      this.pageData = this.$store.state.page
+      this.pageData = JSON.parse(JSON.stringify(this.$store.state.page))
       this.getScale()
       this.canvasStyle = {
         'width': this.pageWidth * this.scale + 'px',
@@ -105,7 +104,7 @@
     },
     computed: {
       pageInfo () {
-        return this.$store.state.page
+        return JSON.parse(JSON.stringify(this.$store.state.page))
       }
     }
   }
