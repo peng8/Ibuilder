@@ -83,6 +83,12 @@ export default new Vuex.Store({
       })
     },
     delEl: (state) => {
+      let zIndex = state.editorData.zindex
+      state.page.elements.forEach(function (element) {
+        if (element.zindex > zIndex) {
+          element.zindex--
+        }
+      })
       let tmpe = state.page.elements.filter((element) => {
         if (element.uuid === state.editorData.uuid) {
           return false
@@ -92,7 +98,13 @@ export default new Vuex.Store({
       state.page.elements = tmpe
       state.editorData = state.page
     },
-    resetLayer(state, val) {
+    copyEl: (state) => {
+      let newEl = JSON.parse(JSON.stringify(state.editorData))
+      newEl.uuid = newEl.name + '_' + Date.now()
+      newEl.zindex = state.page.elements.length
+      state.page.elements.push(newEl)
+    },
+    resetLayer (state, val) {
       let currentIndex = state.editorData['zindex']
       let len = state.page.elements.length
       if (val === 'forward' && currentIndex < len - 1) {
@@ -127,7 +139,7 @@ export default new Vuex.Store({
         state.editorData['zindex'] = 0
       }
     },
-    setPageInfo(state, val) {
+    setPageInfo (state, val) {
       state.page.width = val.width
       state.page.height = val.height
       state.page.scale = val.scale

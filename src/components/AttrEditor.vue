@@ -1,11 +1,18 @@
 <template>
   <div>
-    <div class="form-title">操作面板</div>
+    <!-- <div class="form-title">操作面板</div> -->
 
     <form-item-title :title="'操作元素'"></form-item-title>
     <div class="field-wrap">
       <div class="field is-horizontal">
-        <button class="button is-small" @click="delel">删除该元素</button>
+        <div class="control">
+          <a class="forward button is-small" @click="delel">
+            删除该元素
+          </a>
+          <a class="top button is-small" @click="copyel">
+            复制元素
+          </a>
+        </div>
       </div>
       <div class="field is-horizontal">
         <div class="control" @click="operateLayer">
@@ -34,7 +41,7 @@
         <div class="field-body">
           <div class="field">
             <div class="control">
-              <input class="input is-small" type="number" v-model.number="$store.state.editorData.top">
+              <input class="input is-small" type="number" v-model.number="$store.state.editorData.left">
             </div>
           </div>
         </div>
@@ -46,7 +53,7 @@
         <div class="field-body">
           <div class="field">
             <div class="control">
-              <input class="input is-small" type="number" v-model.number="$store.state.editorData.left">
+              <input class="input is-small" type="number" v-model.number="$store.state.editorData.top">
             </div>
           </div>
         </div>
@@ -281,6 +288,18 @@
           </div>
         </div>
       </div>
+      <div class="field is-horizontal" v-if="typeof $store.state.editorData['src'] !== 'undefined'">
+        <div class="field-label is-small">
+          <label class="label">旋转</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input is-small" type="text" v-model="$store.state.editorData.s['rotate']">
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="field is-horizontal" v-if="$store.state.editorData.s['padding']">
         <div class="field-label is-small">
           <label class="label">内边距</label>
@@ -321,6 +340,9 @@ export default {
     },
     delel() {
       this.$store.commit('delEl')
+    },
+    copyel() {
+      this.$store.commit('copyEl')
     },
     fileChange(val) {
       this.$store.state.editorData.backgroundSrc = val
