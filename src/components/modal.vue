@@ -2,12 +2,12 @@
   <div class="modal-container">
     <div class="preview-content" :style="canvasStyle">
       <div class="preview" :style="innerStyle">
-        <div class="control close-btn" @click="close">
-          <a class="button">
-            X
-          </a>
-        </div>
         <component :is="$store.state.page.name" :com-data="pageData"></component>
+      </div>
+      <div class="control close-btn" @click="close">
+        <a class="button">
+          X
+        </a>
       </div>
     </div>
   </div>
@@ -92,6 +92,17 @@
           'height': this.pageHeight + 'px',
           'transform': 'scale(' + this.scale + ')'
         }
+      },
+      pageInfo: {
+        handler:  function (val) {
+          this.pageData = val
+        },
+        deep: true
+      }
+    },
+    computed: {
+      pageInfo () {
+        return this.$store.state.page
       }
     }
   }
