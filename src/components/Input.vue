@@ -31,7 +31,7 @@ export default {
       for (let key in this.comData.s) {
         let val = this.comData.s[key]
 
-        if (key === 'boxShadow') {
+        if (key === 'boxShadow' && Object.keys(val).length!==0) {
           style['box-shadow'] = '' + (val.color || '#fff') + ' ' + (val.position || '0 0') + ' ' + (val.blur || '0') + ' ' + (val.radius || '0')
           continue
         }

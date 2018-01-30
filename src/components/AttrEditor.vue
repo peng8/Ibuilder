@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <div class="form-title">操作面板</div> -->
 
     <form-item-title :title="'操作元素'"></form-item-title>
     <div class="field-wrap">
@@ -216,40 +215,6 @@
       </div>
     </div>
 
-    <form-item-title :title="'事件'"></form-item-title>
-    <div class="field-wrap">
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label">跳转</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <div class="select is-small">
-                <select v-model="$store.state.editorData.goto">
-                  <option v-for="(item, index) in pageList" :key="index" :value="item.id">
-                    {{item.title}}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="field is-horizontal">
-        <div class="field-label is-small">
-          <label class="label">弹窗</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control">
-              <input class="input is-small" type="text" v-model="$store.state.editorData.modal">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <form-item-title :title="'其他'"></form-item-title>
     <div class="field-wrap">
       <div class="field is-horizontal" v-if="typeof $store.state.editorData['src'] === 'undefined'">
@@ -324,14 +289,6 @@ import Slider from "@/components/Slider.vue"
 export default {
   props: {
 
-  },
-  data() {
-    return {
-      pageList: []
-    }
-  },
-  mounted() {
-    this.pageList = this.$store.state.allPageList
   },
   methods: {
     operateLayer(event) {

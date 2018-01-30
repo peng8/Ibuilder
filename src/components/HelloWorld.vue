@@ -48,7 +48,12 @@
         <ui-img></ui-img>
       </div>
       <div class="edit-panel">
-        <component :is="$store.state.editorData.name + 'Editor'"></component>
+        <ul class="tab">
+          <li :class="{'active': currentTab === 'tab1'}" @click="currentTab='tab1'">操作</li>
+          <li :class="{'active': currentTab === 'tab2'}" @click="currentTab='tab2'">页面</li>
+        </ul>
+        <component v-show="currentTab === 'tab1'" class="editor-part" :is="$store.state.editorData.name + 'Editor'"></component>
+        <page-list v-show="currentTab === 'tab2'"></page-list>
       </div>
     </div>
     <modal v-if="modal" @closeModal='close'></modal>
@@ -61,6 +66,7 @@
   import Page from "@/model/Page.js";
   import queryString from "@/utils/queryString.js"
   import Modal from "@/components/modal.vue"
+  import pageList from "@/components/pageList.vue"
   import cloneData from "@/utils/cloneData.js"
   import message from "./message.js"
   export default {
@@ -72,7 +78,8 @@
         noWatch: false,
         pageData: null,
         scale: 1,
-        modal: false
+        modal: false,
+        currentTab: 'tab1'
       };
     },
     created() {
@@ -172,13 +179,10 @@
         form.append("content", JSON.stringify(this.$store.state.page))
         this.axios.post('/centaur/page/design', form)
           .then((res) => {
-            console.log(res)
+            message.success('保存成功')
           })
           .catch((error) => {
-            message.danger('保存失败22222222222222')
-            setTimeout(()=>{
-              message.danger('11111111')
-            },1000)
+            message.danger('保存失败')
           })
       },
       loadData() {
@@ -191,6 +195,9 @@
               elements: [],
             }) : data)
           })
+          .catch((error) => {
+            message.danger('数据获取失败')
+          })
       },
       close(val) {
         this.modal = val
@@ -199,7 +206,8 @@
     components: {
       AttrEditor,
       NewEl,
-      Modal
+      Modal,
+      pageList
     }
   };
 
@@ -270,9 +278,38 @@
       .edit-panel {
         width: 300px;
         height: 100%;
-        border: 1px solid #c6c6c6;
+        border: 1px solid #f5f5f5;
         padding: 10px;
         overflow-y: auto;
+
+        .tab {
+          margin: -10px -10px 0 -10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          li {
+            flex: 1;
+            padding: 8px 5px;
+            text-align: center;
+            background-color: #e0e0e0;
+            box-shadow: #dbdada 0px -2px 0px 0px inset;
+            cursor: pointer;
+
+            &:hover {
+              font-weight: bold;
+            }
+
+            &.active {
+              background-color: #fff;
+              box-shadow: none;
+            }
+          }
+        }
+
+        .editor-part {
+          margin-top: 10px;
+        }
       }
     }
   }
