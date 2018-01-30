@@ -69,6 +69,7 @@ export default new Vuex.Store({
     },
     addPage: (state, val) => {
       state.page = val
+      state.previewPage = val
     },
     addRecord: (state, val) => {
       state.records.push({

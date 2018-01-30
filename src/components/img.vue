@@ -1,5 +1,5 @@
 <template>
-  <ui-element :comData="comData" v-if="comData">
+  <ui-element :comData="comData" v-if="comData" :isPreview="isPreview">
     <img :src="imgSrc" alt="" :style="eleStyle">
   </ui-element> 
 </template>
@@ -10,6 +10,10 @@ export default {
   props: {
     comData: {
     
+    },
+    isPreview: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

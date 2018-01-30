@@ -1,5 +1,5 @@
 <template>
-  <ui-element :comData="comData">
+  <ui-element :comData="comData" :isPreview = "isPreview">
     <div :style="eleStyle" class="text-wrap">
       {{comData.text}}
       <iframe class="iframe" v-show="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
@@ -15,6 +15,10 @@ import queryString from "@/utils/queryString.js"
       comData: {
 
       },
+      isPreview: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -58,9 +62,6 @@ import queryString from "@/utils/queryString.js"
         console.log(style)
 
         return style
-      },
-      isPreview () {
-        return this.$store.state.page.preview
       }
     }
   }

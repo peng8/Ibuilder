@@ -2,7 +2,7 @@
   <div class="modal-container">
     <div class="preview-content" :style="canvasStyle">
       <div class="preview" :style="innerStyle">
-        <component :is="$store.state.page.name" :com-data="pageData"></component>
+        <component :is="pageData.name" :com-data="pageData" :isPreview="true"></component>
       </div>
     </div>
     <button class="modal-close is-large" aria-label="close" @click="close"></button>
@@ -52,7 +52,6 @@
         this.scale = this.formatData(scale)
       },
       close () {
-        this.pageData.preview = false
         this.$emit('closeModal', false)
       },
       formatData (data) {
@@ -69,7 +68,7 @@
       this.sHeight = page.clientHeight - 70
       this.pageWidth = this.$store.state.page.width
       this.pageHeight = this.$store.state.page.height
-      this.pageData = JSON.parse(JSON.stringify(this.$store.state.page))
+      this.pageData = this.$store.state.previewPage
       this.getScale()
       this.canvasStyle = {
         'width': this.pageWidth * this.scale + 'px',
@@ -80,8 +79,6 @@
         'height': this.pageHeight + 'px',
         'transform': 'scale(' + this.scale + ')'
       }
-      this.pageData = this.$store.state.page
-      this.pageData.preview = true
     },
     watch: {
       scale (val) {
@@ -104,8 +101,7 @@
     },
     computed: {
       pageInfo () {
-        let pageInfo = JSON.parse(JSON.stringify(this.$store.state.page))
-        pageInfo.preview = true
+        let pageInfo = this.$store.state.previewPage
         return pageInfo
       }
     }

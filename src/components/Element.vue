@@ -42,6 +42,10 @@ export default {
         }
       }
     },
+    isPreview: {
+      type: Boolean,
+      default: false
+    }
   },
   data(){
     return {
@@ -155,15 +159,17 @@ export default {
       return result
     },
     goto(id) {
+      if (!id) {
+        return false
+      }
       let gotoPage = this.$store.state.allPageList.filter((page) => {
         if (page.id === id) {
           return true
         }
         return false
       })
-      let page = JSON.parse(gotoPage[0].content)
-      page.preview = true
-      this.$store.state.page = page
+      let previewPage = JSON.parse(gotoPage[0].content)
+      this.$store.state.previewPage = previewPage
     }
   },
   created () {
@@ -213,9 +219,6 @@ export default {
     },
     pageScale () {
       return this.$store.state.page.scale
-    },
-    isPreview () {
-      return this.$store.state.page.preview
     }
   }
 }
