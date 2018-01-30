@@ -3,7 +3,7 @@
     <div :style="eleStyle" class="text-wrap">
       {{comData.text}}
       <iframe class="iframe" v-show="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
-      <div class="hover" v-if="!isPreview"></div>
+      <div class="hover" v-if="editable"></div>
     </div>
   </ui-element>
 </template>

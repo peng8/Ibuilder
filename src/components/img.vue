@@ -1,5 +1,5 @@
 <template>
-  <ui-element :comData="comData" v-if="comData" :isPreview="isPreview">
+  <ui-element :comData="comData" v-if="comData" :editable="editable">
     <img :src="imgSrc" alt="" :style="eleStyle">
   </ui-element> 
 </template>
