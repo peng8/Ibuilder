@@ -11,7 +11,7 @@
         </span>
       </div>
       <div class="header-right">
-        <a class="button is-primary is-small" @click="modal=true">
+        <a class="button is-primary is-small" @click="preview">
           <span class="icon">
             <i class="fas fa-eye"></i>
           </span>
@@ -181,6 +181,10 @@
             },1000)
           })
       },
+      preview () {
+        this.modal = true
+        this.$store.state.page.preview = true
+      },
       loadData() {
         this.axios.get('/centaur/page/getById?id=' + queryString('id'))
           .then((res) => {
@@ -194,6 +198,7 @@
       },
       close(val) {
         this.modal = val
+        this.$store.state.page.preview = false
       }
     },
     components: {

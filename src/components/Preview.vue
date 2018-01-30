@@ -12,12 +12,15 @@
     },
     methods: {
       loadData() {
-        this.axios.get('/centaur/page/getById?accessToken=utry-646862b404be11e8b2c9000c2907a862&id=810c98ff04b811e88098000c2907a862')
+        this.axios.get('/centaur/page/getById?accessToken=utry-21850a2304ec11e8b2c9000c2907a862&id=05014e0e04ea11e8bc29141877cbdd7e')
           .then((res) => {
             let data = JSON.parse(res.data.content);
             data.preview = true
             this.$store.commit("addPage", !data ? new Page({ elements: [], }) : data)
           })
+      },
+      getLoginInfo () {
+        return window.location.href.split('?')[1]
       }
     },
     created () {
