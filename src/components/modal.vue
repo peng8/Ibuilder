@@ -14,8 +14,8 @@
     data () {
       return {
         canvasStyle:{
-          'width': '100%',
-          'height': '100%'
+          'width': '90%',
+          'height': '90%'
           // 'transform': 'scale(1)'
         },
         innerStyle:{
@@ -29,7 +29,6 @@
         pageHeight: 0,
         pageData: {},
         scale: 1,
-        pageData: {}
       }
     },
     methods: {
@@ -38,7 +37,7 @@
         let width = parseInt(this.pageWidth)
         let height = parseInt(this.pageHeight)
         if ((this.pageWidth == '100%' && this.pageHeight == '100%') || typeof this.sWidth !== 'number' || this.sWidth === 0) {
-          return scale
+          scale = 0.9
         }
         if (width > this.sWidth) {
           scale = this.sWidth / width
@@ -70,7 +69,7 @@
       this.sHeight = page.clientHeight - 70
       this.pageWidth = this.$store.state.page.width
       this.pageHeight = this.$store.state.page.height
-      this.pageData = this.$store.state.page
+      this.pageData = JSON.parse(JSON.stringify(this.$store.state.page))
       this.getScale()
       this.canvasStyle = {
         'width': this.pageWidth * this.scale + 'px',
@@ -105,7 +104,7 @@
     },
     computed: {
       pageInfo () {
-        return this.$store.state.page
+        return JSON.parse(JSON.stringify(this.$store.state.page))
       }
     }
   }

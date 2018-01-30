@@ -2,7 +2,8 @@
   <ui-element :comData="comData">
     <div :style="eleStyle" class="text-wrap">
       {{comData.text}}
-      <iframe class="iframe" v-if="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
+      <iframe class="iframe" v-show="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
+      <div class="hover" v-if="isPreview"></div>
     </div>
   </ui-element>
 </template>
@@ -56,6 +57,9 @@
         console.log(style)
 
         return style
+      },
+      isPreview () {
+        return this.$store.state.page.preview
       }
     }
   }
@@ -70,8 +74,14 @@
     word-break: normal;
     overflow: hidden;
   }
-
-  .iframe {
+  .iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .hover{
     position: absolute;
     top: 0;
     left: 0;
