@@ -12,7 +12,7 @@
     },
     methods: {
       loadData() {
-        this.axios.get('/centaur/page/getById?accessToken=utry-21850a2304ec11e8b2c9000c2907a862&id=05014e0e04ea11e8bc29141877cbdd7e')
+        this.axios.get('/centaur/page/getById?' + this.getLoginInfo())
           .then((res) => {
             let data = JSON.parse(res.data.content);
             data.preview = true
@@ -24,11 +24,17 @@
       }
     },
     created () {
+      this.axios.get('/centaur/page/getDesignedList?accessToken=utry-ca41c21f055b11e8b2c9000c2907a862')
+        .then((res) => {
+          this.$store.state.allPageList = res.data
+        })
       this.loadData()
     },
     computed: {
       pageData () {
-        return this.$store.state.page
+        let pageInfo = this.$store.state.page
+        pageInfo.preview = true
+        return pageInfo
       }
     }
   }
