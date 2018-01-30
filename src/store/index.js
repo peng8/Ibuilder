@@ -24,7 +24,8 @@ export default new Vuex.Store({
     records: [],
     editorData: {},
     allPageList: [],
-    copyPage: null
+    copyPage: null,
+    previewPage: {}
   },
   mutations: {
     setBackGround: (state, val) => {
