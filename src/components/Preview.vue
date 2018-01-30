@@ -1,6 +1,6 @@
 <template>
   <div class="preview-contianer">
-    <component :is="$store.state.page.name" :com-data="pageData" :isPreview="true"></component>
+    <component :is="pageData.name" :com-data="pageData" :isPreview="true"></component>
   </div>
 </template>
 <script>
@@ -15,7 +15,6 @@
         this.axios.get('/centaur/page/getById?' + this.getLoginInfo())
           .then((res) => {
             let data = JSON.parse(res.data.content);
-            data.preview = true
             this.$store.commit("addPage", !data ? new Page({ elements: [], }) : data)
           })
       },
