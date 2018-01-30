@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="form-title">操作面板</div>
 
     <form-item-title :title="'页面信息'"></form-item-title>
     <div class="field-wrap">

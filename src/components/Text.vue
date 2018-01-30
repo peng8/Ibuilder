@@ -21,7 +21,7 @@
       }
     },
     mounted() {
-      this.iframeUrl = this.comData.iframeUrl
+      this.iframeUrl = this.comData['iframe-url']
     },
     methods: {
 
@@ -33,19 +33,28 @@
           'width': '100%',
           'height': '100%'
         }
+        
+        console.log(this.comData)
+
+        if (this.comData.backgroundSrc) {
+          style.background = 'no-repeat center/cover url(' + this.comData.backgroundSrc + ')'
+        }
 
         for (let key in this.comData.s) {
           let val = this.comData.s[key]
 
-          if (key === 'boxShadow') {
+          if (key === 'boxShadow' && Object.keys(val).length!==0) {
             style['box-shadow'] = '' + (val.color || '#fff') + ' ' + (val.position || '0 0') + ' ' + (val.blur || '0') +
               ' ' + (val.radius || '0')
             continue
           } else if (key === 'iframe-url') {
             this.iframeUrl = val
+            continue
           }
           style[key] = val
         }
+
+        console.log(style)
 
         return style
       },
@@ -71,7 +80,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
   }
   .hover{
     position: absolute;

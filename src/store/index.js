@@ -23,7 +23,8 @@ export default new Vuex.Store({
     },
     records: [],
     editorData: {},
-    allPageList: []
+    allPageList: [],
+    copyPage: null
   },
   mutations: {
     setBackGround: (state, val) => {

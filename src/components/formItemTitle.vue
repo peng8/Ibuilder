@@ -19,7 +19,7 @@ export default {
 .form-item-title {
   margin: 0 -10px;
   padding: 5px 10px;
-  background-color: #efefef;
+  background-color: #f6f9fa;
   font-size: 15px;
   font-weight: bold;
 }
