@@ -143,14 +143,6 @@
       }
     },
     methods: {
-      fileChange(e) {
-        let file = e.target.files[0];
-        let reader = new FileReader();
-        reader.onload = e => {
-          this.$store.commit("setBackGround", e.target.result);
-        };
-        reader.readAsDataURL(file);
-      },
       undo() {
         if (this.currentStep - 1 >= 0) {
           this.currentStep--

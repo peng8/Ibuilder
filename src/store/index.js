@@ -28,15 +28,6 @@ export default new Vuex.Store({
     previewPage: {}
   },
   mutations: {
-    setBackGround: (state, val) => {
-      state.background = val
-    },
-    addImg: (state, val) => {
-      state.page.elements.push({
-        name: "ui-img",
-        text: val,
-      })
-    },
     addElement: (state, val) => {
       val.zindex = state.page.elements.length
       state.page.elements.push(val)
@@ -148,7 +139,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    edit(context) {}
+    
   },
   plugins: [recordPlugin]
 })
