@@ -20,58 +20,75 @@
 </template>
 
 <script>
-import Button from "@/model/Button.js";
-import Img from "@/model/Img.js";
-import Input from "@/model/Input.js";
-import Text from "@/model/Text.js";
+  import Button from "@/model/Button.js";
+  import Img from "@/model/Img.js";
+  import Input from "@/model/Input.js";
+  import Text from "@/model/Text.js";
 
-export default {
-  data() {
-    return {};
-  },
-  methods: {
-    addButton() {
-      this.$store.commit(
-        "addElement",
-        new Button({ text: "button", name: "ui-button" })
-      );
+  export default {
+    data() {
+      return {};
     },
-    addImg() {
-      this.$store.commit(
-        "addElement",
-        new Img({ text: "image", name: "ui-img" })
-      );
+    methods: {
+      addButton() {
+        this.$store.commit(
+          "addElement",
+          new Button({
+            text: "button",
+            name: "ui-button"
+          })
+        );
+      },
+      addImg() {
+        this.$store.commit(
+          "addElement",
+          new Img({
+            text: "image",
+            name: "ui-img"
+          })
+        );
+      },
+      addInput() {
+        this.$store.commit(
+          "addElement",
+          new Input({
+            text: "input",
+            name: "ui-input"
+          })
+        );
+      },
+      addText() {
+        this.$store.commit(
+          "addElement",
+          new Text({
+            text: "text",
+            name: "ui-text"
+          })
+        );
+      }
     },
-    addInput() {
-      this.$store.commit(
-        "addElement",
-        new Input({ text: "input", name: "ui-input" })
-      );
-    },
-    addText() {
-      this.$store.commit(
-        "addElement",
-        new Text({ text: "text", name: "ui-text" })
-      );
-    }
-  },
-};
+  };
+
 </script>
 
 <style lang="less" scoped>
-.element{
-  transition: all 0.5s;
-  text-align: center;
-  &:hover{
-    color: hsl(171, 100%, 41%);
-    background-color: white;
-    cursor: pointer;
+  .element {
+    padding: 8px 4px 8px 0;
+    line-height: 1;
+    text-align: center;
+    border-left: 4px solid #fff;
+    &:hover {
+      border-left: 4px solid #4fc3f7;
+      background-color: #f6f6f6;
+      color: #1a76d2;
+      cursor: pointer;
+    }
+    i {
+      font-size: 32px;
+    }
+    div {
+      font-size: 12px;
+    }
   }
-  i{
-    font-size: 32px;
-  }
-  div{
-    font-size: 12px;
-  }
-}
+
 </style>
