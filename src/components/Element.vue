@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="baseEle design"
-      v-if="!isPreview"
+      v-if="editable"
       :style="eleStyle"
       @mousedown.prevent="dragEvent"
       @contextmenu.prevent="operateElements"
@@ -42,7 +42,7 @@ export default {
         }
       }
     },
-    isPreview: {
+    editable: {
       type: Boolean,
       default: false
     }

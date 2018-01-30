@@ -1,6 +1,6 @@
 <template>
   <div class="preview-contianer">
-    <component :is="pageData.name" :com-data="pageData" :isPreview="true"></component>
+    <component :is="pageData.name" :com-data="pageData"></component>
   </div>
 </template>
 <script>

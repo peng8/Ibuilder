@@ -1,5 +1,5 @@
 <template>
-  <ui-element :comData="comData" :isPreview = "isPreview">
+  <ui-element :comData="comData" :editable = "editable">
     <div :style="eleStyle" class="text-wrap">
       {{comData.text}}
       <iframe class="iframe" v-show="iframeUrl" :src="iframeUrl" frameborder="0"></iframe>
@@ -14,7 +14,7 @@
       comData: {
 
       },
-      isPreview: {
+      editable: {
         type: Boolean,
         default: false
       }

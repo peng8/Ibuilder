@@ -2,7 +2,7 @@
   <div class="modal-container">
     <div class="preview-content" :style="canvasStyle">
       <div class="preview" :style="innerStyle">
-        <component :is="pageData.name" :com-data="pageData" :isPreview="true"></component>
+        <component :is="pageData.name" :com-data="pageData"></component>
       </div>
     </div>
     <button class="modal-close is-large" aria-label="close" @click="close"></button>

@@ -14,7 +14,7 @@
       </div>
       <div class="canvas">
         <div class="canvas-content" :style="canvasStyle">
-          <component :is="$store.state.page.name" :com-data="$store.state.page"></component>
+          <component :is="$store.state.page.name" :com-data="$store.state.page" :editable = "true"></component>
         </div>
         <ui-img></ui-img>
       </div>

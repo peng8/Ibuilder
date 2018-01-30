@@ -4,7 +4,7 @@
       v-for="(item, index) in comData.elements" 
       :is="item.name"
       :key="index"
-      :isPreview="isPreview"
+      :editable="editable"
       :com-data="item">
     </component>
   </div>
@@ -16,7 +16,7 @@ export default {
     comData:{
       type: Object
     },
-    isPreview: {
+    editable: {
       type: Boolean,
       default: false
     }

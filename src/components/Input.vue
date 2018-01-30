@@ -1,5 +1,5 @@
 <template>
-  <ui-element :comData="comData" :isPreview = "isPreview">
+  <ui-element :comData="comData" :editable = "editable">
     <div :style="eleStyle" class="input">
       <input type="text" :value="comData.text" class="input-class" :style="inputStyle">
     </div>
@@ -12,7 +12,7 @@ export default {
     comData: {
 
     },
-    isPreview: {
+    editable: {
       type: Boolean,
       default: false
     }

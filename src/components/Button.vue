@@ -1,5 +1,5 @@
 <template>
-  <ui-element :comData="comData" :isPreview="isPreview">
+  <ui-element :comData="comData" :editable="editable">
     <button :style="eleStyle" :class="eleClass" class="button">
       {{comData.text}}
     </button>
@@ -12,7 +12,7 @@
       comData: {
 
       },
-      isPreview: {
+      editable: {
         type: Boolean,
         default: false
       }
