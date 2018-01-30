@@ -1,10 +1,11 @@
 <template>
-  <ui-element :comData="comData" v-if="comData" :editable="editable">
-    <img :src="comData.src" alt="" :style="eleStyle">
+  <ui-element :comData="comData" v-if="comData" :isPreview="isPreview">
+    <img :src="imgSrc" alt="" :style="eleStyle">
   </ui-element> 
 </template>
 
 <script>
+import queryString from "@/utils/queryString.js"
 export default {
   props: {
     comData: {
@@ -32,6 +33,9 @@ export default {
         }
       }
       return style
+    },
+    imgSrc(){
+      return this.comData.src + '?accessToken=' + queryString("accessToken")
     }
   }
 }

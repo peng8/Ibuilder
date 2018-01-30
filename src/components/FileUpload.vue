@@ -35,11 +35,12 @@ export default {
       this.axios.post("/fileManager/file/upload", data)
       .then((res) => {
         let imgId = res.data[0].fileId
-        let url = res.config.baseURL + "/fileManager/file/render/" + imgId + "?accessToken=" + res.config.headers.accessToken
+        let url = res.config.baseURL + "/fileManager/file/render/" + imgId
         let urlData = "url(" + url + ")"
         console.log(url)
         console.log(urlData)
-        this.$emit("fileChange", urlData)
+        //todo:这两个接口合并，后续不再提供关于文件token的拼接
+        this.$emit("fileChange", url)
         this.$emit("urlChange", url)
         this.fileName = input.files[0].name
       })
