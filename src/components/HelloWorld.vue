@@ -20,7 +20,7 @@
       </div>
       <div class="edit-panel" :style="pickUpEditStyle">
         <div class="tools">
-          <a class="button is-small" @click="modal=true">
+          <a class="button is-small" @click="preview">
             <span class="icon">
               <i class="fas fa-eye"></i>
             </span>
@@ -196,7 +196,6 @@
       },
       close(val) {
         this.modal = val
-        this.$store.state.page.preview = false
       },
       pickupEl() {
         if (Object.keys(this.pickUpElStyle).length === 0) {
