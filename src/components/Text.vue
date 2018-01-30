@@ -38,8 +38,6 @@ import queryString from "@/utils/queryString.js"
           'width': '100%',
           'height': '100%'
         }
-        
-        console.log(this.comData)
 
         if (this.comData.backgroundSrc) {
           style.background = 'no-repeat center/cover url(' + this.comData.backgroundSrc + '?accessToken=' + queryString("accessToken") + ')'
@@ -58,8 +56,6 @@ import queryString from "@/utils/queryString.js"
           }
           style[key] = val
         }
-
-        console.log(style)
 
         return style
       }

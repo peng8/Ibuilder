@@ -122,7 +122,6 @@
     watch: {
       pageData: {
         handler: function (val) {
-          console.log(1111111)
           if (this.noWatch) {
             this.noWatch = false
           } else {
@@ -131,7 +130,6 @@
             this.$store.state.records.push(cloneData(val))
             this.records = this.$store.state.records
           }
-          console.log(this.$store.state.records)
         },
         deep: true
       },
