@@ -2,7 +2,7 @@ import axios from 'axios'
 import queryString from "@/utils/queryString.js"
 var instance = axios.create({
   timeout: 20000,
-  baseURL: "http://10.0.33.21",
+  baseURL: window.baseURL,
   headers: {
     'Content-Type': 'application/json; charset=UTF-8',
     'X-Requested-With': 'XMLHttpRequest',
