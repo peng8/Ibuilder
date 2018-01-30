@@ -144,14 +144,6 @@
       }
     },
     methods: {
-      fileChange(e) {
-        let file = e.target.files[0];
-        let reader = new FileReader();
-        reader.onload = e => {
-          this.$store.commit("setBackGround", e.target.result);
-        };
-        reader.readAsDataURL(file);
-      },
       undo() {
         if (this.currentStep - 1 >= 0) {
           this.currentStep--
@@ -186,6 +178,10 @@
             message.danger('保存失败')
           })
       },
+      preview() {
+        this.modal = true
+        this.$store.state.page.preview = true
+      },
       loadData() {
         this.axios.get('/centaur/page/getById?id=' + queryString('id'))
           .then((res) => {
@@ -200,6 +196,7 @@
       },
       close(val) {
         this.modal = val
+        this.$store.state.page.preview = false
       },
       pickupEl() {
         if (Object.keys(this.pickUpElStyle).length === 0) {
@@ -262,7 +259,7 @@
         overflow-y: auto;
 
         &:hover {
-          .pick-up-el{
+          .pick-up-el {
             display: flex;
           }
         }
@@ -291,7 +288,7 @@
         background: #fff;
 
         &:hover {
-          .pick-up-edit{
+          .pick-up-edit {
             display: flex;
           }
         }

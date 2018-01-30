@@ -24,18 +24,10 @@ export default new Vuex.Store({
     records: [],
     editorData: {},
     allPageList: [],
-    copyPage: null
+    copyPage: null,
+    previewPage: {}
   },
   mutations: {
-    setBackGround: (state, val) => {
-      state.background = val
-    },
-    addImg: (state, val) => {
-      state.page.elements.push({
-        name: "ui-img",
-        text: val,
-      })
-    },
     addElement: (state, val) => {
       val.zindex = state.page.elements.length
       state.page.elements.push(val)
@@ -147,7 +139,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    edit(context) {}
+    
   },
   plugins: [recordPlugin]
 })

@@ -104,7 +104,9 @@
     },
     computed: {
       pageInfo () {
-        return JSON.parse(JSON.stringify(this.$store.state.page))
+        let pageInfo = JSON.parse(JSON.stringify(this.$store.state.page))
+        pageInfo.preview = true
+        return pageInfo
       }
     }
   }

@@ -12,20 +12,29 @@
     },
     methods: {
       loadData() {
-        this.axios.get('/centaur/page/getById?accessToken=utry-646862b404be11e8b2c9000c2907a862&id=810c98ff04b811e88098000c2907a862')
+        this.axios.get('/centaur/page/getById?' + this.getLoginInfo())
           .then((res) => {
             let data = JSON.parse(res.data.content);
             data.preview = true
             this.$store.commit("addPage", !data ? new Page({ elements: [], }) : data)
           })
+      },
+      getLoginInfo () {
+        return window.location.href.split('?')[1]
       }
     },
     created () {
+      this.axios.get('/centaur/page/getDesignedList?accessToken=utry-ca41c21f055b11e8b2c9000c2907a862')
+        .then((res) => {
+          this.$store.state.allPageList = res.data
+        })
       this.loadData()
     },
     computed: {
       pageData () {
-        return this.$store.state.page
+        let pageInfo = this.$store.state.page
+        pageInfo.preview = true
+        return pageInfo
       }
     }
   }
