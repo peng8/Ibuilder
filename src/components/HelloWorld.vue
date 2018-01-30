@@ -85,8 +85,6 @@
     },
     created() {
       this.loadData()
-      this.pageData = this.$store.state.page
-      this.records = this.$store.state.records
     },
     mounted() {
       this.axios.get('/centaur/page/getDesignedList')
@@ -124,6 +122,7 @@
     watch: {
       pageData: {
         handler: function (val) {
+          console.log(1111111)
           if (this.noWatch) {
             this.noWatch = false
           } else {
@@ -132,6 +131,7 @@
             this.$store.state.records.push(cloneData(val))
             this.records = this.$store.state.records
           }
+          console.log(this.$store.state.records)
         },
         deep: true
       },
@@ -189,6 +189,9 @@
             this.$store.commit("addPage", !data ? new Page({
               elements: [],
             }) : data)
+
+            this.pageData = this.$store.state.page
+            this.records = this.$store.state.records
           })
           .catch((error) => {
             message.danger('数据获取失败')
