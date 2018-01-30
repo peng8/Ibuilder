@@ -1,6 +1,6 @@
 <template>
   <div class="preview-contianer">
-    <component :is="$store.state.page.name" :com-data="pageData"></component>
+    <component :is="$store.state.page.name" :com-data="pageData" :isPreview="true"></component>
   </div>
 </template>
 <script>
@@ -32,8 +32,7 @@
     },
     computed: {
       pageData () {
-        let pageInfo = this.$store.state.page
-        pageInfo.preview = true
+        let pageInfo = this.$store.state.previewPage
         return pageInfo
       }
     }

@@ -4,6 +4,7 @@
       v-for="(item, index) in comData.elements" 
       :is="item.name"
       :key="index"
+      :isPreview="isPreview"
       :com-data="item">
     </component>
   </div>
@@ -14,6 +15,10 @@ export default {
   props:{
     comData:{
       type: Object
+    },
+    isPreview: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

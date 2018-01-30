@@ -1,5 +1,5 @@
 <template>
-  <ui-element :comData="comData">
+  <ui-element :comData="comData" :isPreview="isPreview">
     <button :style="eleStyle" :class="eleClass" class="button">
       {{comData.text}}
     </button>
@@ -12,6 +12,10 @@
       comData: {
 
       },
+      isPreview: {
+        type: Boolean,
+        default: false
+      }
     },
     computed: {
       eleStyle: function () {

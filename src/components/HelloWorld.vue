@@ -123,7 +123,6 @@
     watch: {
       pageData: {
         handler: function (val) {
-          console.log(this.noWatch)
           if (this.noWatch) {
             this.noWatch = false
           } else {
@@ -187,7 +186,8 @@
       },
       preview () {
         this.modal = true
-        this.$store.state.page.preview = true
+        let previewPage = JSON.parse(JSON.stringify(this.$store.state.page))
+        this.$store.state.previewPage = previewPage
       },
       loadData() {
         this.axios.get('/centaur/page/getById?id=' + queryString('id'))
