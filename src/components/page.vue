@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import queryString from "@/utils/queryString.js"
 export default {
   props:{
     comData:{
@@ -20,7 +21,7 @@ export default {
     pageStyle(){
       return {
         'backgroundColor': this.comData.backgroundColor,
-        'backgroundImage': this.comData.backgroundImage,
+        'backgroundImage': 'url(' + this.comData.backgroundImage + '?accessToken=' + queryString("accessToken") + ')',
         'backgroundSize': "cover",
       }
     }

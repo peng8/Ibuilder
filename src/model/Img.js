@@ -4,7 +4,7 @@ export default class Img extends Element {
     super(option)
     this.height = '100'
     this.width = '100'
-    this.src = 'https://www.baidu.com/img/bd_logo1.png'
+    this.src = 'http://temp.im/200x200'
     this.s = {
       opacity: 1,
       rotate: '',

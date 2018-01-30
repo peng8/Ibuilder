@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import queryString from "@/utils/queryString.js"
   export default {
     props: {
       comData: {
@@ -22,7 +23,7 @@
         }
 
         if (this.comData.backgroundSrc) {
-          style.background = 'no-repeat center/cover url(' + this.comData.backgroundSrc + ')'
+          style.background = 'no-repeat center/cover url(' + this.comData.backgroundSrc + '?accessToken=' + queryString("accessToken") + ')'
         }
 
         for (let key in this.comData.s) {
